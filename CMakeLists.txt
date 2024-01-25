@@ -10,7 +10,14 @@ FetchContent_Declare(SFML
         GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(space-invaders src/main.cpp)
+add_executable(space-invaders src/main.cpp
+        src/hud.cpp
+        src/header/hud.h
+        src/player.cpp
+        src/header/player.h
+        src/projectile.cpp
+        src/header/projectile.h
+)
 target_link_libraries(space-invaders PRIVATE sfml-graphics)
 target_compile_features(space-invaders PRIVATE cxx_std_17)
 
