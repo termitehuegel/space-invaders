@@ -10,6 +10,7 @@ Game::Game(AssetManager *asset_manger) {
 }
 
 void Game::update(sf::Time delta_time) {
+    fps = floor(1.0f/delta_time.asSeconds());
     player->update(delta_time, &player_projectiles, &enemy_projectiles);
     enemy_controller->update(delta_time, &player_projectiles, &enemy_projectiles);
     for (std::vector<Projectile*>::iterator iterator = player_projectiles.begin(); iterator != player_projectiles.end();) {
@@ -34,7 +35,7 @@ void Game::update(sf::Time delta_time) {
 
 void Game::draw(sf::RenderWindow *window) {
     window->draw(background);
-    hud->draw(window);
+    hud->draw(window, fps);
     player->draw(window);
     enemy_controller->draw(window);
     for (Projectile* projectile : player_projectiles) {
@@ -49,4 +50,8 @@ void Game::draw(sf::RenderWindow *window) {
         }
         projectile->draw(window);
     }
+}
+
+bool Game::gameOver() {
+    return game_state.game_over;
 }

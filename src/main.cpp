@@ -13,10 +13,16 @@ int main() {
     AssetManager* asset_manager = new AssetManager("assets");
     Game* game = new Game(asset_manager);
 
+    /**
+     * This is the update loop, that draws each frame and processes window events.
+     */
     while (window.isOpen()) {
         sf::Time delta_time = clock.getElapsedTime();
         clock.restart();
 
+        /**
+         * Evaluate window events that happened. E.g. terminate if window is closed.
+         */
         for (sf::Event event = sf::Event{}; window.pollEvent(event);) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -24,6 +30,7 @@ int main() {
             }
         }
         window.clear();
+
         game->update(delta_time);
         game->draw(&window);
 

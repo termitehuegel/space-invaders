@@ -15,10 +15,12 @@ private:
     Player* player;
     EnemyController* enemy_controller;
     sf::Sprite background;
+    unsigned int fps;
 public:
     Game(AssetManager* asset_manger);
     void update(sf::Time delta_time);
     void draw(sf::RenderWindow* window);
+    bool gameOver();
 };
 
 #endif

@@ -7,6 +7,7 @@
 class HUD {
 private:
     GameState *game_state;
+    sf::Text *fps;
     sf::Text *score_text;
     sf::Text *score_number;
     sf::Text *highscore_text;
@@ -16,7 +17,7 @@ private:
 public:
     HUD(AssetManager *asset_manager, GameState *game_state);
 
-    void draw(sf::RenderWindow *window);
+    void draw(sf::RenderWindow *window, unsigned int fps);
 };
 
 #endif
