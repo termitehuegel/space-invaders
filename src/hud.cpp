@@ -1,17 +1,20 @@
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "header/hud.h"
 
-HUD::HUD() {
-    font_cour.loadFromFile("assets/fonts/cour.ttf");
+HUD::HUD(AssetManager* asset_manager, GameState* game_state) {
+    this->game_state = game_state;
 
-    score_text = new sf::Text("SCORE", font_cour, 50);
-    highscore_text = new sf::Text("HIGHSCORE", font_cour, 50);
-    lives_text = new sf::Text("LIVES", font_cour, 50);
-    score_number = new sf::Text("00000", font_cour, 50);
-    highscore_number = new sf::Text("00000", font_cour, 50);
-    lives_number = new sf::Text("0", font_cour, 50);
+    sf::Font* cour = asset_manager->getFonts()->at("cour");
+
+    score_text = new sf::Text("SCORE", *cour, 50);
+    highscore_text = new sf::Text("HIGHSCORE", *cour, 50);
+    lives_text = new sf::Text("LIVES", *cour, 50);
+    score_number = new sf::Text("00000", *cour, 50);
+    highscore_number = new sf::Text("00000", *cour, 50);
+    lives_number = new sf::Text("0", *cour, 50);
 
     score_text->setFillColor(sf::Color::White);
     highscore_text->setFillColor(sf::Color::White);
@@ -31,10 +34,10 @@ HUD::HUD() {
     highscore_number->setPosition(1600, 75);
 }
 
-void HUD::draw(sf::RenderWindow *window, unsigned int score, unsigned int highscore, unsigned int lives) {
+void HUD::draw(sf::RenderWindow *window) {
 
-    std::string score_string = std::to_string(score);
-    std::string highscore_string = std::to_string(highscore);
+    std::string score_string = std::to_string(game_state->score);
+    std::string highscore_string = std::to_string(game_state->highscore);
 
     if (score_string.length() < 5) {
         score_string.insert(0, 5 - score_string.length(), '0');
@@ -46,7 +49,7 @@ void HUD::draw(sf::RenderWindow *window, unsigned int score, unsigned int highsc
 
     score_number->setString(score_string);
     highscore_number->setString(highscore_string);
-    lives_number->setString(std::to_string(lives));
+    lives_number->setString(std::to_string(game_state->lives));
 
     window->draw(*score_text);
     window->draw(*highscore_text);
