@@ -1,9 +1,12 @@
 #ifndef SPACE_INVADERS_HUD_H
 #define SPACE_INVADERS_HUD_H
 
+#include "assetManager.h"
+#include "gameState.h"
+
 class HUD {
 private:
-    sf::Font font_cour;
+    GameState *game_state;
     sf::Text *score_text;
     sf::Text *score_number;
     sf::Text *highscore_text;
@@ -11,8 +14,9 @@ private:
     sf::Text *lives_text;
     sf::Text *lives_number;
 public:
-    HUD();
-    void draw(sf::RenderWindow *window, unsigned int score, unsigned int highscore, unsigned int lives);
+    HUD(AssetManager *asset_manager, GameState *game_state);
+
+    void draw(sf::RenderWindow *window);
 };
 
 #endif
