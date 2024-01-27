@@ -17,6 +17,10 @@ add_executable(space-invaders src/main.cpp
         src/header/player.h
         src/projectile.cpp
         src/header/projectile.h
+        src/enemy.cpp
+        src/header/enemy.h
+        src/enemyController.cpp
+        src/header/enemyController.h
 )
 target_link_libraries(space-invaders PRIVATE sfml-graphics)
 target_compile_features(space-invaders PRIVATE cxx_std_17)

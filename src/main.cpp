@@ -5,6 +5,7 @@
 #include "header/projectile.h"
 #include "header/hud.h"
 #include "header/player.h"
+#include "header/enemyController.h"
 
 struct GameState {
     bool game_over;
@@ -29,6 +30,7 @@ int main() {
     std::vector<Projectile*> player_projectiles = {};
 
     Player* player = new Player(0.5f, 2500);
+    EnemyController* enemyController = new EnemyController(0.1f, 0.05f, 25);
 
     while (window.isOpen()) {
         sf::Time delta_time = clock.getElapsedTime();
@@ -43,6 +45,7 @@ int main() {
         window.clear();
 
         player->update(delta_time, &player_projectiles);
+        enemyController->update(delta_time);
         for (std::vector<Projectile*>::iterator iterator = player_projectiles.begin(); iterator != player_projectiles.end();) {
             (*iterator)->update(delta_time);
             if (!(*iterator)->isInBound()) {
@@ -57,6 +60,7 @@ int main() {
         window.draw(background);
         hud->draw(&window, game_state.score, game_state.highscore, game_state.lives);
         player->draw(&window);
+        enemyController->draw(&window);
         for (Projectile* projectile : player_projectiles) {
             projectile->draw(&window);
         }
