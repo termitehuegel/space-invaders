@@ -10,10 +10,8 @@ private:
     int reload_time;
 public:
     Player(float speed, int reload_time);
-
     void draw(sf::RenderWindow *window);
-
-    void update(sf::Time delta_time, std::vector<Projectile*>* player_projectiles);
+    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles);
 };
 
 #endif

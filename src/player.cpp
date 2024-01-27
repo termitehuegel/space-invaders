@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
-#include "iostream"
 
 #include "header/projectile.h"
 #include "header/player.h"
