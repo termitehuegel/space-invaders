@@ -1,8 +1,10 @@
+#include <cmath>
+
 #include "header/game.h"
 
-Game::Game(AssetManager *asset_manger) {
+Game::Game(AssetManager *asset_manger, unsigned int highscore) {
     this->asset_manager = asset_manger;
-    game_state = {false, 0, 0, 3};
+    game_state = {false, 0, highscore, 3};
     hud = new HUD(asset_manager, &game_state);
     player = new Player(0.5f, 2500, asset_manager, &game_state);
     enemy_controller = new EnemyController(0.01f, 0.05f, 15, &game_state, asset_manager);
@@ -10,7 +12,7 @@ Game::Game(AssetManager *asset_manger) {
 }
 
 void Game::update(sf::Time delta_time) {
-    fps = floor(1.0f/delta_time.asSeconds());
+    fps = std::floor(1.0f/delta_time.asSeconds());
     player->update(delta_time, &player_projectiles, &enemy_projectiles);
     enemy_controller->update(delta_time, &player_projectiles, &enemy_projectiles);
     for (std::vector<Projectile*>::iterator iterator = player_projectiles.begin(); iterator != player_projectiles.end();) {
@@ -32,6 +34,7 @@ void Game::update(sf::Time delta_time) {
         }
     }
     projectileCollision();
+    updateHighScore();
 }
 
 void Game::draw(sf::RenderWindow *window) {
@@ -73,5 +76,15 @@ void Game::projectileCollision() {
         if (next) {
             player_projectile_iter++;
         }
+    }
+}
+
+unsigned int Game::highscore() const {
+    return game_state.highscore;
+}
+
+void Game::updateHighScore() {
+    if (game_state.highscore < game_state.score) {
+        game_state.highscore = game_state.score;
     }
 }

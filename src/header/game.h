@@ -7,22 +7,30 @@
 
 class Game {
 private:
-    AssetManager* asset_manager;
+    AssetManager *asset_manager;
     GameState game_state;
     HUD *hud;
-    std::vector<Projectile*> player_projectiles;
-    std::vector<Projectile*> enemy_projectiles;
-    Player* player;
-    EnemyController* enemy_controller;
+    std::vector<Projectile *> player_projectiles;
+    std::vector<Projectile *> enemy_projectiles;
+    Player *player;
+    EnemyController *enemy_controller;
     sf::Sprite background;
     unsigned int fps;
 
     void projectileCollision();
+
+    void updateHighScore();
+
 public:
-    Game(AssetManager* asset_manger);
+    Game(AssetManager *asset_manger, unsigned int highscore);
+
     void update(sf::Time delta_time);
-    void draw(sf::RenderWindow* window);
+
+    void draw(sf::RenderWindow *window);
+
     bool gameOver() const;
+
+    unsigned int highscore() const;
 };
 
 #endif
