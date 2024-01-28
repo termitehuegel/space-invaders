@@ -1,6 +1,7 @@
 #include "header/enemyController.h"
 
-EnemyController::EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state, AssetManager* asset_manager) {
+EnemyController::EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
+                                 AssetManager *asset_manager) {
     this->asset_manager = asset_manager;
     change_direction = false;
     this->acceleration = acceleration;
@@ -20,13 +21,6 @@ void EnemyController::update(sf::Time delta_time, std::vector<Projectile *> *pla
 
     if (playerReached()) {
         game_state->game_over = true;
-    } else if (isEmpty()) {
-        reset();
-        if (speed > 0) {
-            speed = speed - 11*5*acceleration;
-        } else {
-            speed = speed + 11*5*acceleration;
-        }
     }
 }
 
@@ -60,7 +54,8 @@ void EnemyController::updateMovement(sf::Time delta_time) {
             }
 
             enemies[x][y]->setPosition(new_x, new_y);
-            if ((new_x <= 0 && speed < 0) || (new_x + (float) asset_manager->getTextures()->at("enemy")->getSize().x >= 1920 && speed > 0)) {
+            if ((new_x <= 0 && speed < 0) ||
+                (new_x + (float) asset_manager->getTextures()->at("enemy")->getSize().x >= 1920 && speed > 0)) {
                 border_reached = true;
             }
         }
@@ -73,12 +68,14 @@ void EnemyController::updateMovement(sf::Time delta_time) {
 }
 
 void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectile *> *player_projectiles) {
+    bool hit = false;
     for (int x = 0; x < 11; x++) {
         for (int y = 0; y < 5; y++) {
             if (enemies[x][y] == nullptr) {
                 continue;
             }
             if (enemies[x][y]->detectCollision(player_projectiles)) {
+                hit = true;
                 delete enemies[x][y];
                 enemies[x][y] = nullptr;
                 game_state->score += 100;
@@ -88,6 +85,14 @@ void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectil
                     speed -= acceleration;
                 }
             }
+        }
+    }
+    if (isEmpty()) {
+        reset();
+        if (speed > 0) {
+            speed = speed - 11 * 5 * acceleration;
+        } else {
+            speed = speed + 11 * 5 * acceleration;
         }
     }
 }
@@ -137,7 +142,8 @@ bool EnemyController::isEmpty() {
 void EnemyController::reset() {
     for (int x = 0; x < 11; x++) {
         for (int y = 0; y < 5; y++) {
-            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
+            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 150,
+                                      200.0f + (float) y * 75.0f);
         }
     }
 }
