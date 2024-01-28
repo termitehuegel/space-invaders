@@ -26,6 +26,8 @@ add_executable(space-invaders src/main.cpp
         src/assetManager.cpp
         src/header/game.h
         src/game.cpp
+        src/header/menu.h
+        src/menu.cpp
 )
 target_link_libraries(space-invaders PRIVATE sfml-graphics)
 target_compile_features(space-invaders PRIVATE cxx_std_17)
