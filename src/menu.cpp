@@ -7,6 +7,9 @@ Menu::Menu(AssetManager *asset_manager) {
     options = {Options::FULL_HD, Options::WINDOWED, Options::HUNDRED_FORTY_FOUR_HERTZ};
     sf::Font *cour = asset_manager->getFonts()->at("cour");
 
+    // BACKGROUND
+    background.setTexture(*asset_manager->getTextures()->at("background-menu"));
+
     // MAIN MENU
     play_text = new sf::Text("PLAY", *cour, 50);
     play_text->setFillColor(sf::Color::White);
@@ -65,6 +68,7 @@ bool Menu::update(sf::Time delta_time, sf::RenderWindow *window) {
 }
 
 void Menu::draw(sf::RenderWindow *window) {
+    window->draw(background);
     if (state == MAIN) {
         drawMainMenu(window);
     } else if (state == OPTIONS) {
