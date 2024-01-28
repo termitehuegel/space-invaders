@@ -1,6 +1,7 @@
 #include "header/assetManager.h"
 
 AssetManager::AssetManager(std::string asset_base_path) {
+    loadTexture("background-menu", asset_base_path + "/textures/backgroundMenu.png");
     loadTexture("background", asset_base_path + "/textures/background.png");
     loadTexture("player", asset_base_path + "/textures/player.png");
     loadTexture("projectile", asset_base_path + "/textures/projectile.png");

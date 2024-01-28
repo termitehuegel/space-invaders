@@ -35,12 +35,12 @@ private:
         RefreshRate refresh_rate;
     };
 
+    sf::Sprite background;
     MenuState state;
     Options options;
     Options selected_options;
     unsigned int selected;
     int cooldown;
-
 
     sf::Text *play_text;
     sf::Text *options_text;
@@ -55,8 +55,7 @@ private:
     sf::Text *back_text;
     sf::Text *apply_text;
 
-
-    void applyOptions(sf::RenderWindow* window);
+    void applyOptions(sf::RenderWindow *window);
 
     void updateMainMenuSelection();
 
