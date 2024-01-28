@@ -354,7 +354,12 @@ void Menu::updateOptionsMenuSelection() {
 }
 
 void Menu::updateOptionsMenuExecution(sf::RenderWindow *window) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        selected = 1;
+        state = MAIN;
+        cooldown = 250;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) ||
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         switch (selected) {
             case 3:
                 selected = 1;
