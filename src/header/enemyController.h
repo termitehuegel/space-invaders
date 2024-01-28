@@ -21,7 +21,7 @@ private:
     void updateCollision(sf::Time delta_time, std::vector<Projectile*>* player_projectiles);
     void shoot(sf::Time delta_time, std::vector<Projectile*>* enemy_projectiles);
 public:
-    EnemyController(float acceleration, float speed, float step, GameState* game_state, AssetManager* asset_manager);
+    EnemyController(int reload_time, float acceleration, float speed, float step, GameState* game_state, AssetManager* asset_manager);
     void update(sf::Time delta_time, std::vector<Projectile*>* player_projectiles, std::vector<Projectile*>* enemy_projectiles);
     void draw(sf::RenderWindow *window);
 };
