@@ -6,8 +6,8 @@ Game::Game(AssetManager *asset_manger, unsigned int highscore) {
     this->asset_manager = asset_manger;
     game_state = {false, 0, highscore, 3};
     hud = new HUD(asset_manager, &game_state);
-    player = new Player(0.5f, 2500, asset_manager, &game_state);
-    enemy_controller = new EnemyController(0.01f, 0.05f, 15, &game_state, asset_manager);
+    player = new Player(0.5f, 1500, asset_manager, &game_state);
+    enemy_controller = new EnemyController(1500, 0.005f, 0.05f, 15, &game_state, asset_manager);
     background.setTexture(*asset_manager->getTextures()->at("background"));
 }
 

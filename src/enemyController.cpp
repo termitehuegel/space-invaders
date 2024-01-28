@@ -1,17 +1,17 @@
 #include "header/enemyController.h"
 
-EnemyController::EnemyController(float acceleration, float speed, float step, GameState *game_state, AssetManager* asset_manager) {
+EnemyController::EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state, AssetManager* asset_manager) {
     this->asset_manager = asset_manager;
     change_direction = false;
     this->acceleration = acceleration;
     this->speed = speed;
     this->step = step;
-    reload_time = 1000;
+    this->reload_time = reload_time;
     this->game_state = game_state;
 
     for (int x = 0; x < 11; x++) {
         for (int y = 0; y < 5; y++) {
-            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 125, 200.0f + (float) y * 75.0f);
+            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
         }
     }
 }
