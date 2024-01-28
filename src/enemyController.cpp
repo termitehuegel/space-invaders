@@ -9,11 +9,7 @@ EnemyController::EnemyController(int reload_time, float acceleration, float spee
     this->reload_time = reload_time;
     this->game_state = game_state;
 
-    for (int x = 0; x < 11; x++) {
-        for (int y = 0; y < 5; y++) {
-            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
-        }
-    }
+    reset();
 }
 
 void EnemyController::update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
@@ -22,7 +18,16 @@ void EnemyController::update(sf::Time delta_time, std::vector<Projectile *> *pla
     updateCollision(delta_time, player_projectiles);
     shoot(delta_time, enemy_projectiles);
 
-
+    if (playerReached()) {
+        game_state->game_over = true;
+    } else if (isEmpty()) {
+        reset();
+        if (speed > 0) {
+            speed = speed - 11*5*acceleration;
+        } else {
+            speed = speed + 11*5*acceleration;
+        }
+    }
 }
 
 void EnemyController::draw(sf::RenderWindow *window) {
@@ -102,6 +107,37 @@ void EnemyController::shoot(sf::Time delta_time, std::vector<Projectile *> *enem
                     break;
                 }
             }
+        }
+    }
+}
+
+bool EnemyController::playerReached() {
+    for (int x = 0; x < 11; x++) {
+        for (int y = 4; y >= 0; y--) {
+            if (enemies[x][y] == nullptr) {
+                continue;
+            }
+            return enemies[x][y]->getPosition().y >= 980;
+        }
+    }
+    return false;
+}
+
+bool EnemyController::isEmpty() {
+    for (int x = 0; x < 11; x++) {
+        for (int y = 0; y < 5; y++) {
+            if (enemies[x][y] != nullptr) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void EnemyController::reset() {
+    for (int x = 0; x < 11; x++) {
+        for (int y = 0; y < 5; y++) {
+            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
         }
     }
 }
