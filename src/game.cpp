@@ -31,6 +31,7 @@ void Game::update(sf::Time delta_time) {
             iterator++;
         }
     }
+    projectileCollision();
 }
 
 void Game::draw(sf::RenderWindow *window) {
@@ -52,6 +53,25 @@ void Game::draw(sf::RenderWindow *window) {
     }
 }
 
-bool Game::gameOver() {
+bool Game::gameOver() const {
     return game_state.game_over;
+}
+
+void Game::projectileCollision() {
+    for (std::vector<Projectile*>::iterator player_projectile_iter = player_projectiles.begin(); player_projectile_iter != player_projectiles.end();) {
+        bool next = true;
+        for (std::vector<Projectile*>::iterator enemy_projectile_iter = enemy_projectiles.begin(); enemy_projectile_iter != enemy_projectiles.end(); enemy_projectile_iter++) {
+            if ((*player_projectile_iter)->collidesWith((*enemy_projectile_iter)->getBounds())) {
+                delete *enemy_projectile_iter;
+                delete *player_projectile_iter;
+                enemy_projectiles.erase(enemy_projectile_iter);
+                player_projectile_iter = player_projectiles.erase(player_projectile_iter);
+                next = false;
+                break;
+            }
+        }
+        if (next) {
+            player_projectile_iter++;
+        }
+    }
 }

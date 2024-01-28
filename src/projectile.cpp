@@ -23,14 +23,14 @@ void Projectile::update(sf::Time delta_time) {
     sprite.setPosition(sprite.getPosition().x, new_y);
 }
 
-float Projectile::getSpeed() {
-    return speed;
-}
-
 bool Projectile::isInBound() {
     return in_bound;
 }
 
 bool Projectile::collidesWith(sf::FloatRect bounds) {
     return sprite.getGlobalBounds().intersects(bounds);
+}
+
+sf::Rect<float> Projectile::getBounds() {
+    return sprite.getGlobalBounds();
 }

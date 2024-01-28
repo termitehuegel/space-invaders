@@ -16,11 +16,13 @@ private:
     EnemyController* enemy_controller;
     sf::Sprite background;
     unsigned int fps;
+
+    void projectileCollision();
 public:
     Game(AssetManager* asset_manger);
     void update(sf::Time delta_time);
     void draw(sf::RenderWindow* window);
-    bool gameOver();
+    bool gameOver() const;
 };
 
 #endif
