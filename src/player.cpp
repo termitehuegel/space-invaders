@@ -40,7 +40,7 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile *> *playe
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
          sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && cooldown <= 0) {
         cooldown = reload_time;
-        Projectile *projectile = new Projectile(-0.5f, sprite.getPosition().x + sprite.getTextureRect().getSize().y/2 - 8,
+        Projectile *projectile = new Projectile(-1.0f, sprite.getPosition().x + sprite.getTextureRect().getSize().y/2 - 8,
                                                 sprite.getPosition().y - 1, asset_manager);
         player_projectiles->push_back(projectile);
     }
