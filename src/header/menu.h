@@ -39,7 +39,7 @@ private:
     MenuState state;
     Options options;
     Options selected_options;
-    unsigned int selected;
+    unsigned char selected;
     int cooldown;
 
     sf::Text *play_text;

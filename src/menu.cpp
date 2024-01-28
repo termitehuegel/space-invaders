@@ -229,6 +229,7 @@ bool Menu::updateMainMenuExecution() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         switch (selected) {
             case 0:
+                cooldown = 1000;
                 return true;
             case 1:
                 state = OPTIONS;

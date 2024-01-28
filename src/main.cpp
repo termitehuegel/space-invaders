@@ -1,10 +1,33 @@
 #include <chrono>
+#include <fstream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 
 #include "header/assetManager.h"
 #include "header/game.h"
 #include "header/menu.h"
+
+unsigned int loadHighscore() {
+    unsigned int highscore = 0;
+    std::ifstream save_file("save.data");
+    std::string line;
+    while (getline (save_file, line)) {
+        int position = line.find("highscore=");
+        if (position >= 0) {
+            highscore = std::stoul(line.substr(position+10));
+        }
+
+    }
+    save_file.close();
+    return highscore;
+}
+
+void saveHighscore(unsigned int highscore) {
+    std::ofstream save_file("save.data");
+    save_file << "highscore=" << highscore;
+    save_file.close();
+}
 
 
 int main() {
@@ -14,6 +37,9 @@ int main() {
     AssetManager *asset_manager = new AssetManager("assets");
     Menu *menu = new Menu(asset_manager);
     Game *game = nullptr;
+    unsigned int highscore = loadHighscore();
+
+
 
     /**
      * This is the update loop, that draws each frame and processes window events.
@@ -37,9 +63,13 @@ int main() {
             game->update(delta_time);
             game->draw(&window);
         } else {
+            if (game != nullptr && game->highscore() > highscore) {
+                highscore = game->highscore();
+                saveHighscore(highscore);
+            }
             if (menu->update(delta_time, &window)) {
                 delete game;
-                game = new Game(asset_manager);
+                game = new Game(asset_manager, highscore);
             }
             menu->draw(&window);
         }
