@@ -16,11 +16,11 @@ public:
 
     void update(sf::Time delta_time);
 
-    float getSpeed();
-
     bool isInBound();
 
     bool collidesWith(sf::FloatRect bounds);
+
+    sf::Rect<float> getBounds();
 };
 
 #endif
