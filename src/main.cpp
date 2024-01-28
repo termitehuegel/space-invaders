@@ -8,6 +8,10 @@
 #include "header/game.h"
 #include "header/menu.h"
 
+/**
+ * Tries to load the saved highscore from the file ./save.data.
+ * @return the loaded highscore or 0.
+ */
 unsigned int loadHighscore() {
     unsigned int highscore = 0;
     std::ifstream save_file("save.data");
@@ -23,6 +27,10 @@ unsigned int loadHighscore() {
     return highscore;
 }
 
+/**
+ * Saves the highscore to the file ./save.data and overrides the content of the save file in the process.
+ * @param highscore that should be saved.
+ */
 void saveHighscore(unsigned int highscore) {
     std::ofstream save_file("save.data");
     save_file << "highscore=" << highscore;
@@ -38,8 +46,6 @@ int main() {
     Menu *menu = new Menu(asset_manager);
     Game *game = nullptr;
     unsigned int highscore = loadHighscore();
-
-
 
     /**
      * This is the update loop, that draws each frame and processes window events.
