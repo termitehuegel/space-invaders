@@ -21,7 +21,6 @@ unsigned int loadHighscore() {
         if (position >= 0) {
             highscore = std::stoul(line.substr(position+10));
         }
-
     }
     save_file.close();
     return highscore;

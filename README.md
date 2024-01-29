@@ -30,12 +30,13 @@ This project was originally compiled with the visual studio compiler.
 
 ### Game
 
-| Key         | Action     |
-|:------------|:-----------|
-| SPACE       | SHOOT      |
-| W           | SHOOT      |
-| ARROW-UP    | SHOOT      |
-| A           | MOVE LEFT  |
-| ARROW-LEFT  | MOVE-LEFT  |
-| D           | MOVE-RIGHT |
-| ARROW-RIGHT | MOVE-RIGHT |
+| Key           | Action                   |
+|:--------------|:-------------------------|
+| SPACE         | SHOOT                    |
+| W             | SHOOT                    |
+| ARROW-UP      | SHOOT                    |
+| A             | MOVE LEFT                |
+| ARROW-LEFT    | MOVE-LEFT                |
+| D             | MOVE-RIGHT               |
+| ARROW-RIGHT   | MOVE-RIGHT               |
+| ESCAPE (HOLD) | GIVE UP (RETURN TO MENU) |
