@@ -16,10 +16,13 @@ private:
     EnemyController *enemy_controller;
     sf::Sprite background;
     unsigned int fps;
+    int quit_time;
 
     void projectileCollision();
 
     void updateHighScore();
+
+    void updateQuit(sf::Time delta_time);
 
 public:
     Game(AssetManager *asset_manger, unsigned int highscore);

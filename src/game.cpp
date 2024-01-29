@@ -9,6 +9,7 @@ Game::Game(AssetManager *asset_manger, unsigned int highscore) {
     player = new Player(0.5f, 1500, asset_manager, &game_state);
     enemy_controller = new EnemyController(1500, 0.005f, 0.05f, 15, &game_state, asset_manager);
     background.setTexture(*asset_manager->getTextures()->at("background"));
+    quit_time = 1500;
 }
 
 void Game::update(sf::Time delta_time) {
@@ -35,6 +36,7 @@ void Game::update(sf::Time delta_time) {
     }
     projectileCollision();
     updateHighScore();
+    updateQuit(delta_time);
 }
 
 void Game::draw(sf::RenderWindow *window) {
@@ -86,5 +88,16 @@ unsigned int Game::highscore() const {
 void Game::updateHighScore() {
     if (game_state.highscore < game_state.score) {
         game_state.highscore = game_state.score;
+    }
+}
+
+void Game::updateQuit(sf::Time delta_time) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+        quit_time -= delta_time.asMilliseconds();
+        if (quit_time <= 0) {
+            game_state.game_over = true;
+        }
+    } else {
+        quit_time = 1500;
     }
 }
