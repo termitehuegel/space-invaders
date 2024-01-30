@@ -16,10 +16,10 @@ unsigned int loadHighscore() {
     unsigned int highscore = 0;
     std::ifstream save_file("save.data");
     std::string line;
-    while (getline (save_file, line)) {
+    while (getline(save_file, line)) {
         int position = line.find("highscore=");
         if (position >= 0) {
-            highscore = std::stoul(line.substr(position+10));
+            highscore = std::stoul(line.substr(position + 10));
         }
     }
     save_file.close();
@@ -39,12 +39,15 @@ void saveHighscore(unsigned int highscore) {
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Space Invaders", sf::Style::Default);
-    window.setFramerateLimit(144);
     sf::Clock clock;
     AssetManager *asset_manager = new AssetManager("assets");
     Menu *menu = new Menu(asset_manager);
     Game *game = nullptr;
     unsigned int highscore = loadHighscore();
+    window.setFramerateLimit(144);
+    window.setIcon(asset_manager->getImages()->at("icon")->getSize().y,
+                   asset_manager->getImages()->at("icon")->getSize().y,
+                   asset_manager->getImages()->at("icon")->getPixelsPtr());
 
     /**
      * This is the update loop, that draws each frame and processes window events.
