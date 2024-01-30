@@ -1,3 +1,4 @@
+#include <iostream>
 #include "header/enemyController.h"
 
 EnemyController::EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
@@ -98,7 +99,7 @@ void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectil
 }
 
 void EnemyController::shoot(sf::Time delta_time, std::vector<Projectile *> *enemy_projectiles) {
-    cooldown -= delta_time.asMilliseconds();
+    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
     if (cooldown <= 0) {
         for (int x = 0; x < 11; x++) {
             bool no_shoot = std::rand() % 5;

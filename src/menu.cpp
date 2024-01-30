@@ -77,7 +77,7 @@ void Menu::draw(sf::RenderWindow *window) {
 }
 
 bool Menu::updateMainMenu(sf::Time delta_time) {
-    cooldown -= delta_time.asMilliseconds();
+    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
     if (cooldown > 0) {
         return false;
     }
@@ -87,7 +87,7 @@ bool Menu::updateMainMenu(sf::Time delta_time) {
 }
 
 void Menu::updateOptionsMenu(sf::Time delta_time, sf::RenderWindow *window) {
-    cooldown -= delta_time.asMilliseconds();
+    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
     if (cooldown > 0) {
         return;
     }

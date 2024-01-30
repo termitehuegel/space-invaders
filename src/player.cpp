@@ -36,7 +36,7 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile *> *playe
                 sprite.getPosition().y);
     }
 
-    cooldown -= delta_time.asMilliseconds();
+    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
          sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && cooldown <= 0) {
         cooldown = reload_time;
