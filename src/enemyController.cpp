@@ -10,7 +10,6 @@ EnemyController::EnemyController(int reload_time, float acceleration, float spee
     this->step = step;
     this->reload_time = reload_time;
     this->game_state = game_state;
-
     reset();
 }
 
@@ -56,7 +55,7 @@ void EnemyController::updateMovement(sf::Time delta_time) {
 
             enemies[x][y]->setPosition(new_x, new_y);
             if ((new_x <= 0 && speed < 0) ||
-                (new_x + (float) asset_manager->getTextures()->at("enemy")->getSize().x >= 1920 && speed > 0)) {
+                (new_x + 32.0f >= 1920 && speed > 0)) {
                 border_reached = true;
             }
         }
@@ -141,10 +140,26 @@ bool EnemyController::isEmpty() {
 }
 
 void EnemyController::reset() {
-    for (int x = 0; x < 11; x++) {
-        for (int y = 0; y < 5; y++) {
-            enemies[x][y] = new Enemy(asset_manager->getTextures()->at("enemy"), 150.0f + (float) x * 150,
-                                      200.0f + (float) y * 75.0f);
+    for (int y = 0; y < 5; y++) {
+        sf::Texture *texture;
+        switch (y) {
+            case 0:
+                texture = asset_manager->getTextures()->at("enemy1");
+                break;
+            case 1:
+            case 2:
+                texture = asset_manager->getTextures()->at("enemy2");
+                break;
+            case 3:
+            case 4:
+                texture = asset_manager->getTextures()->at("enemy3");
+                break;
+            default:
+                texture = asset_manager->getTextures()->at("enemy1");
+                break;
+        }
+        for (int x = 0; x < 11; x++) {
+            enemies[x][y] = new Enemy(texture, 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
         }
     }
 }
