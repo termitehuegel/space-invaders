@@ -5,7 +5,9 @@ AssetManager::AssetManager(std::string asset_base_path) {
     loadTexture("background", asset_base_path + "/textures/background.png");
     loadTexture("player", asset_base_path + "/textures/player.png");
     loadTexture("projectile", asset_base_path + "/textures/projectile.png");
-    loadTexture("enemy", asset_base_path + "/textures/enemy.png");
+    loadTexture("enemy1", asset_base_path + "/textures/enemy1.png");
+    loadTexture("enemy2", asset_base_path + "/textures/enemy2.png");
+    loadTexture("enemy3", asset_base_path + "/textures/enemy3.png");
 
     loadFont("cour", asset_base_path + "/fonts/cour.ttf");
 
