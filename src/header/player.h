@@ -7,19 +7,32 @@
 
 class Player {
 private:
-    AssetManager* asset_manager;
-    GameState* game_state;
+    AssetManager *asset_manager;
+    GameState *game_state;
     sf::Sprite sprite;
+    bool display;
     float speed;
-    int cooldown;
+    int reload_cooldown;
     int reload_time;
+    int invincibility_time;
+    int invincibility_cooldown;
+    int invincivility_display_time;
+
+    void updateTimers(sf::Time delta_time);
+
+    void updateInvincibilityBlinking();
 
     void updateControl(sf::Time delta_time, std::vector<Projectile *> *player_projectiles);
-    void updateCollision(std::vector<Projectile*>* enemy_projectiles);
+
+    void updateCollision(std::vector<Projectile *> *enemy_projectiles);
+
 public:
-    Player(float speed, int reload_time, AssetManager* asset_manager, GameState* game_state);
+    Player(float speed, int reload_time, int invincibility_time, AssetManager *asset_manager, GameState *game_state);
+
     void draw(sf::RenderWindow *window);
-    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles, std::vector<Projectile *> *enemy_projectiles);
+
+    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
+                std::vector<Projectile *> *enemy_projectiles);
 };
 
 #endif
