@@ -1,5 +1,5 @@
 #include <iostream>
-#include "header/enemyController.h"
+#include "../include/enemyController.h"
 
 EnemyController::EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
                                  AssetManager *asset_manager) {
@@ -10,8 +10,19 @@ EnemyController::EnemyController(int reload_time, float acceleration, float spee
     this->step = step;
     this->reload_time = reload_time;
     this->game_state = game_state;
-    cooldown = 0;
+    reload_cooldown = 0;
     reset();
+}
+
+EnemyController::~EnemyController() {
+    for (int x = 0; x < 11; x++) {
+        for (int y = 0; y < 5; y++) {
+            if (enemies[x][y] == nullptr) {
+                continue;
+            }
+            delete enemies[x][y];
+        }
+    }
 }
 
 void EnemyController::update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
@@ -99,8 +110,8 @@ void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectil
 }
 
 void EnemyController::shoot(sf::Time delta_time, std::vector<Projectile *> *enemy_projectiles) {
-    cooldown = cooldown > delta_time.asMilliseconds() ? cooldown - delta_time.asMilliseconds(): 0;
-    if (cooldown <= 0) {
+    reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
+    if (reload_cooldown <= 0) {
         for (int x = 0; x < 11; x++) {
             bool no_shoot = std::rand() % 5;
             if (no_shoot) {
@@ -109,7 +120,7 @@ void EnemyController::shoot(sf::Time delta_time, std::vector<Projectile *> *enem
             for (int y = 4; y >= 0; y--) {
                 if (enemies[x][y] != nullptr) {
                     enemy_projectiles->push_back(enemies[x][y]->shoot(asset_manager));
-                    cooldown = reload_time;
+                    reload_cooldown = reload_time;
                     break;
                 }
             }
@@ -145,33 +156,22 @@ void EnemyController::reset() {
         sf::Texture *texture;
         switch (y) {
             case 0:
-                texture = asset_manager->getTextures()->at("enemy1");
+                texture = asset_manager->getTextures()->at("enemy-1");
                 break;
             case 1:
             case 2:
-                texture = asset_manager->getTextures()->at("enemy2");
+                texture = asset_manager->getTextures()->at("enemy-2");
                 break;
             case 3:
             case 4:
-                texture = asset_manager->getTextures()->at("enemy3");
+                texture = asset_manager->getTextures()->at("enemy-3");
                 break;
             default:
-                texture = asset_manager->getTextures()->at("enemy1");
+                texture = asset_manager->getTextures()->at("enemy-1");
                 break;
         }
         for (int x = 0; x < 11; x++) {
             enemies[x][y] = new Enemy(texture, 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
-        }
-    }
-}
-
-EnemyController::~EnemyController() {
-    for (int x = 0; x < 11; x++) {
-        for (int y = 0; y < 5; y++) {
-            if (enemies[x][y] == nullptr) {
-                continue;
-            }
-            delete enemies[x][y];
         }
     }
 }

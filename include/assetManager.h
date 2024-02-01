@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
 typedef std::map<std::string, sf::Texture *> TextureMap;
 typedef std::map<std::string, sf::Font *> FontMap;
@@ -32,4 +32,5 @@ private:
 
     void loadImage(const std::string& key, const std::string& file_path);
 };
+
 #endif

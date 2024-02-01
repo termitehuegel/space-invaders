@@ -1,7 +1,7 @@
 #ifndef SPACE_INVADERS_ENEMY_H
 #define SPACE_INVADERS_ENEMY_H
 
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "projectile.h"
 
 class Enemy {
@@ -21,4 +21,5 @@ public:
 private:
     sf::Sprite sprite;
 };
+
 #endif

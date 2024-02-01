@@ -34,4 +34,5 @@ private:
 
     void updateCollision(std::vector<Projectile *> *enemy_projectiles);
 };
+
 #endif

@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "header/projectile.h"
-#include "header/player.h"
+#include "../include/projectile.h"
+#include "../include/player.h"
 
 Player::Player(float speed, int reload_time, int invincibility_time, AssetManager* asset_manager, GameState* game_state) {
     this->asset_manager = asset_manager;

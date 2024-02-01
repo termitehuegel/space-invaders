@@ -1,7 +1,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-#include "header/hud.h"
+#include "../include/hud.h"
 
 HUD::HUD(AssetManager* asset_manager, GameState* game_state) {
     this->game_state = game_state;
@@ -36,6 +36,16 @@ HUD::HUD(AssetManager* asset_manager, GameState* game_state) {
     highscore_number->setPosition(1600, 75);
 }
 
+HUD::~HUD() {
+    delete fps;
+    delete score_text;
+    delete score_number;
+    delete highscore_text;
+    delete highscore_number;
+    delete lives_text;
+    delete lives_number;
+}
+
 void HUD::draw(sf::RenderWindow *window, unsigned int fps) {
     std::string score_string = std::to_string(game_state->score);
     std::string highscore_string = std::to_string(game_state->highscore);
@@ -60,14 +70,4 @@ void HUD::draw(sf::RenderWindow *window, unsigned int fps) {
     window->draw(*score_number);
     window->draw(*highscore_number);
     window->draw(*lives_number);
-}
-
-HUD::~HUD() {
-    delete fps;
-    delete score_text;
-    delete score_number;
-    delete highscore_text;
-    delete highscore_number;
-    delete lives_text;
-    delete lives_number;
 }

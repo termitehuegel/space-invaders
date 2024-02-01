@@ -24,7 +24,7 @@ private:
     Enemy *enemies[11][5];
     bool change_direction;
     float step;
-    unsigned int cooldown;
+    unsigned int reload_cooldown;
     int reload_time;
     GameState *game_state;
 
@@ -40,4 +40,5 @@ private:
 
     void reset();
 };
+
 #endif

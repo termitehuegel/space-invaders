@@ -1,4 +1,4 @@
-#include "header/enemy.h"
+#include "../include/enemy.h"
 
 Enemy::Enemy(sf::Texture* texture, float x, float y) {;
     sprite.setTexture(*texture);

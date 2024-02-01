@@ -32,4 +32,5 @@ private:
     sf::Text *lives_text;
     sf::Text *lives_number;
 };
+
 #endif
