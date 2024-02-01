@@ -16,7 +16,7 @@ private:
     EnemyController *enemy_controller;
     sf::Sprite background;
     unsigned int fps;
-    int quit_time;
+    unsigned int quit_time;
 
     void projectileCollision();
 

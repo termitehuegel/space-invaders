@@ -12,11 +12,11 @@ private:
     sf::Sprite sprite;
     bool display;
     float speed;
-    int reload_cooldown;
+    unsigned int reload_cooldown;
     int reload_time;
     int invincibility_time;
-    int invincibility_cooldown;
-    int invincivility_display_time;
+    unsigned int invincibility_cooldown;
+    unsigned int invincivility_display_time;
 
     void updateTimers(sf::Time delta_time);
 
