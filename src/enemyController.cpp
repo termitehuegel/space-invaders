@@ -10,6 +10,7 @@ EnemyController::EnemyController(int reload_time, float acceleration, float spee
     this->step = step;
     this->reload_time = reload_time;
     this->game_state = game_state;
+    cooldown = 0;
     reset();
 }
 
@@ -98,7 +99,7 @@ void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectil
 }
 
 void EnemyController::shoot(sf::Time delta_time, std::vector<Projectile *> *enemy_projectiles) {
-    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
+    cooldown = cooldown > delta_time.asMilliseconds() ? cooldown - delta_time.asMilliseconds(): 0;
     if (cooldown <= 0) {
         for (int x = 0; x < 11; x++) {
             bool no_shoot = std::rand() % 5;

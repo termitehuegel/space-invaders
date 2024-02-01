@@ -72,9 +72,9 @@ void Player::updateCollision(std::vector<Projectile *> *enemy_projectiles) {
 }
 
 void Player::updateTimers(sf::Time delta_time) {
-    invincibility_cooldown = std::max(0, invincibility_cooldown - delta_time.asMilliseconds());
-    invincivility_display_time = std::max(0, invincivility_display_time - delta_time.asMilliseconds());
-    reload_cooldown = std::max(0, reload_cooldown - delta_time.asMilliseconds());
+    invincibility_cooldown =  invincibility_cooldown > delta_time.asMilliseconds() ? invincibility_cooldown - delta_time.asMilliseconds() : 0;
+    invincivility_display_time = invincivility_display_time > delta_time.asMilliseconds() ? invincivility_display_time - delta_time.asMilliseconds() : 0;
+    reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
 }
 
 void Player::updateInvincibilityBlinking() {

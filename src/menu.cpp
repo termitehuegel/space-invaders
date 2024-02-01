@@ -3,6 +3,7 @@
 
 Menu::Menu(AssetManager *asset_manager) {
     selected = 0;
+    cooldown = 0;
     state = MAIN;
     options = {Options::FULL_HD, Options::WINDOWED, Options::HUNDRED_FORTY_FOUR_HERTZ};
     sf::Font *cour = asset_manager->getFonts()->at("cour");
@@ -59,10 +60,11 @@ Menu::Menu(AssetManager *asset_manager) {
 }
 
 bool Menu::update(sf::Time delta_time, sf::RenderWindow *window) {
+    updateTimers(delta_time);
     if (state == MenuState::MAIN) {
-        return updateMainMenu(delta_time);
+        return updateMainMenu();
     } else if (state == MenuState::OPTIONS) {
-        updateOptionsMenu(delta_time, window);
+        updateOptionsMenu(window);
     }
     return false;
 }
@@ -76,8 +78,7 @@ void Menu::draw(sf::RenderWindow *window) {
     }
 }
 
-bool Menu::updateMainMenu(sf::Time delta_time) {
-    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
+bool Menu::updateMainMenu() {
     if (cooldown > 0) {
         return false;
     }
@@ -86,8 +87,7 @@ bool Menu::updateMainMenu(sf::Time delta_time) {
     return updateMainMenuExecution();
 }
 
-void Menu::updateOptionsMenu(sf::Time delta_time, sf::RenderWindow *window) {
-    cooldown = std::max(0, cooldown - delta_time.asMilliseconds());
+void Menu::updateOptionsMenu(sf::RenderWindow *window) {
     if (cooldown > 0) {
         return;
     }
@@ -416,4 +416,8 @@ void Menu::applyOptions(sf::RenderWindow *window) {
             window->setFramerateLimit(144);
             break;
     }
+}
+
+void Menu::updateTimers(sf::Time delta_time) {
+    cooldown = cooldown > delta_time.asMilliseconds() ? cooldown - delta_time.asMilliseconds() : 0;
 }

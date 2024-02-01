@@ -94,7 +94,7 @@ void Game::updateHighScore() {
 
 void Game::updateQuit(sf::Time delta_time) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-        quit_time = std::max(0, quit_time - delta_time.asMilliseconds());
+        quit_time = quit_time > delta_time.asMilliseconds() ? quit_time - delta_time.asMilliseconds() : 0;
         if (quit_time <= 0) {
             game_state.game_over = true;
         }

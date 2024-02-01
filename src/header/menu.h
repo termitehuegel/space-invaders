@@ -73,7 +73,7 @@ private:
      * 4 => apply
      */
     unsigned char selected;
-    int cooldown;
+    unsigned int cooldown;
 
     /**
      * All texts that are part of the main menu.
@@ -100,6 +100,8 @@ private:
      */
     void applyOptions(sf::RenderWindow *window);
 
+    void updateTimers(sf::Time delta_time);
+
     void updateMainMenuSelection();
 
     bool updateMainMenuExecution();
@@ -108,9 +110,9 @@ private:
 
     void updateOptionsMenuExecution(sf::RenderWindow *window);
 
-    bool updateMainMenu(sf::Time delta_time);
+    bool updateMainMenu();
 
-    void updateOptionsMenu(sf::Time delta_time, sf::RenderWindow *window);
+    void updateOptionsMenu(sf::RenderWindow *window);
 
     void drawMainMenu(sf::RenderWindow *window);
 
