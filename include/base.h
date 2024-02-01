@@ -15,7 +15,6 @@ public:
 
     void draw(sf::RenderWindow *window);
 private:
-    AssetManager* asset_manager;
     BaseFragment* base_fragments[6];
 };
 

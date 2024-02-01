@@ -18,21 +18,21 @@ private:
     AssetManager *asset_manager;
     GameState *game_state;
     sf::Sprite sprite;
-    bool display;
     float speed;
-    unsigned int reload_cooldown;
     int reload_time;
+    unsigned int reload_cooldown;
+    bool display;
     int invincibility_time;
     unsigned int invincibility_cooldown;
     unsigned int invincivility_display_time;
 
     void updateTimers(sf::Time delta_time);
 
-    void updateInvincibilityBlinking();
-
     void updateControl(sf::Time delta_time, std::vector<Projectile *> *player_projectiles);
 
     void updateCollision(std::vector<Projectile *> *enemy_projectiles);
+
+    void updateInvincibilityBlinking();
 };
 
 #endif

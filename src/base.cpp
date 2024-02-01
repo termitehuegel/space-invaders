@@ -2,8 +2,6 @@
 #include "../include/base.h"
 
 Base::Base(AssetManager *asset_manager, float x, float y) {
-    this->asset_manager = asset_manager;
-
     base_fragments[0] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-1"), x + 45, y + 5);
     base_fragments[1] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-2"), x + 35, y + 21);
     base_fragments[2] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-3"), x + 20, y + 0);
@@ -13,7 +11,7 @@ Base::Base(AssetManager *asset_manager, float x, float y) {
 }
 
 Base::~Base() {
-    for (BaseFragment* base_fragment : base_fragments) {
+    for (BaseFragment *base_fragment: base_fragments) {
         if (base_fragment == nullptr) {
             continue;
         }

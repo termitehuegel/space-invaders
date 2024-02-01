@@ -24,7 +24,7 @@ void Projectile::update(sf::Time delta_time) {
     sprite.setPosition(sprite.getPosition().x, new_y);
 }
 
-bool Projectile::isInBound() {
+bool Projectile::isInBound() const {
     return in_bound;
 }
 

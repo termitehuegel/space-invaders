@@ -3,10 +3,10 @@
 
 #include "../include/hud.h"
 
-HUD::HUD(AssetManager* asset_manager, GameState* game_state) {
+HUD::HUD(AssetManager *asset_manager, GameState *game_state) {
     this->game_state = game_state;
 
-    sf::Font* cour = asset_manager->getFonts()->at("cour");
+    sf::Font *cour = asset_manager->getFonts()->at("cour");
 
     fps = new sf::Text("FPS:10", *cour, 15);
     score_text = new sf::Text("SCORE", *cour, 50);
