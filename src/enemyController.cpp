@@ -67,7 +67,7 @@ void EnemyController::updateMovement(sf::Time delta_time) {
 
             enemies[x][y]->setPosition(new_x, new_y);
             if ((new_x <= 0 && speed < 0) ||
-                (new_x + 32.0f >= 1920 && speed > 0)) {
+                (new_x + 64.0f >= 1920 && speed > 0)) {
                 border_reached = true;
             }
         }
