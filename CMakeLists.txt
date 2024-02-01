@@ -12,22 +12,26 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(space-invaders src/main.cpp
         src/hud.cpp
-        src/header/hud.h
+        include/hud.h
         src/player.cpp
-        src/header/player.h
+        include/player.h
         src/projectile.cpp
-        src/header/projectile.h
+        include/projectile.h
         src/enemy.cpp
-        src/header/enemy.h
+        include/enemy.h
         src/enemyController.cpp
-        src/header/enemyController.h
-        src/header/gameState.h
-        src/header/assetManager.h
+        include/enemyController.h
+        include/gameState.h
+        include/assetManager.h
         src/assetManager.cpp
-        src/header/game.h
+        include/game.h
         src/game.cpp
-        src/header/menu.h
+        include/menu.h
         src/menu.cpp
+        include/base.h
+        src/base.cpp
+        include/baseFragment.h
+        src/baseFragment.cpp
 )
 target_link_libraries(space-invaders PRIVATE sfml-graphics)
 target_compile_features(space-invaders PRIVATE cxx_std_17)

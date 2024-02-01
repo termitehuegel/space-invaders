@@ -1,7 +1,7 @@
 #ifndef SPACE_INVADERS_MENU_H
 #define SPACE_INVADERS_MENU_H
 
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "assetManager.h"
 
 /**
@@ -131,4 +131,5 @@ private:
 
     void drawOptionsMenu(sf::RenderWindow *window);
 };
+
 #endif

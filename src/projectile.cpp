@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "header/projectile.h"
+#include "../include/projectile.h"
 
 Projectile::Projectile(float speed, float x, float y, AssetManager* asset_manager) {
     this->speed = speed;

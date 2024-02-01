@@ -22,4 +22,5 @@ private:
     sf::Sprite sprite;
     bool in_bound;
 };
+
 #endif

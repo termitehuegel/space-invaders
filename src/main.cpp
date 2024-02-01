@@ -4,9 +4,9 @@
 #include <iostream>
 
 
-#include "header/assetManager.h"
-#include "header/game.h"
-#include "header/menu.h"
+#include "../include/assetManager.h"
+#include "../include/game.h"
+#include "../include/menu.h"
 
 /**
  * Tries to load the saved highscore from the file ./save.data.
@@ -50,7 +50,7 @@ int main() {
                    asset_manager->getImages()->at("icon")->getPixelsPtr());
 
     /**
-     * This is the update loop, that draws each frame and processes window events.
+     * This is the detectCollision loop, that draws each frame and processes window events.
      */
     while (window.isOpen()) {
         sf::Time delta_time = clock.getElapsedTime();
@@ -77,7 +77,7 @@ int main() {
             }
             if (menu->update(delta_time, &window)) {
                 delete game;
-                game = new Game(asset_manager, highscore);
+                game = new Game(asset_manager, highscore, 1500);
             }
             menu->draw(&window);
         }

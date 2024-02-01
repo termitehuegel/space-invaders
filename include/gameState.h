@@ -14,4 +14,5 @@ struct GameState {
     unsigned int highscore;
     unsigned int lives;
 };
+
 #endif

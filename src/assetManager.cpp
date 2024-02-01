@@ -1,17 +1,35 @@
-#include "header/assetManager.h"
+#include "../include/assetManager.h"
 
 AssetManager::AssetManager(const std::string &asset_base_path) {
     loadTexture("background-menu", asset_base_path + "/textures/backgroundMenu.png");
     loadTexture("background", asset_base_path + "/textures/background.png");
     loadTexture("player", asset_base_path + "/textures/player.png");
     loadTexture("projectile", asset_base_path + "/textures/projectile.png");
-    loadTexture("enemy1", asset_base_path + "/textures/enemy1.png");
-    loadTexture("enemy2", asset_base_path + "/textures/enemy2.png");
-    loadTexture("enemy3", asset_base_path + "/textures/enemy3.png");
+    loadTexture("enemy-1", asset_base_path + "/textures/enemy1.png");
+    loadTexture("enemy-2", asset_base_path + "/textures/enemy2.png");
+    loadTexture("enemy-3", asset_base_path + "/textures/enemy3.png");
+    loadTexture("base-fragment-1", asset_base_path + "/textures/baseFragment1.png");
+    loadTexture("base-fragment-2", asset_base_path + "/textures/baseFragment2.png");
+    loadTexture("base-fragment-3", asset_base_path + "/textures/baseFragment3.png");
+    loadTexture("base-fragment-4", asset_base_path + "/textures/baseFragment4.png");
+    loadTexture("base-fragment-5", asset_base_path + "/textures/baseFragment5.png");
+    loadTexture("base-fragment-6", asset_base_path + "/textures/baseFragment6.png");
 
     loadFont("cour", asset_base_path + "/fonts/cour.ttf");
 
     loadImage("icon", asset_base_path + "/icons/icon.png");
+}
+
+AssetManager::~AssetManager() {
+    for (std::pair<std::string, sf::Texture *> map_entry: textures) {
+        delete map_entry.second;
+    }
+    for (std::pair<std::string, sf::Font *> map_entry: fonts) {
+        delete map_entry.second;
+    }
+    for (std::pair<std::string, sf::Image *> map_entry: images) {
+        delete map_entry.second;
+    }
 }
 
 const TextureMap *AssetManager::getTextures() {
@@ -42,16 +60,4 @@ void AssetManager::loadImage(const std::string &key, const std::string &file_pat
     sf::Image *image = new sf::Image();
     image->loadFromFile(file_path);
     images.insert(ImageMap::value_type(key, image));
-}
-
-AssetManager::~AssetManager() {
-    for (std::pair<std::string, sf::Texture *> map_entry: textures) {
-        delete map_entry.second;
-    }
-    for (std::pair<std::string, sf::Font *> map_entry: fonts) {
-        delete map_entry.second;
-    }
-    for (std::pair<std::string, sf::Image *> map_entry: images) {
-        delete map_entry.second;
-    }
 }

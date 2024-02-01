@@ -1,5 +1,5 @@
 #include <iostream>
-#include "header/menu.h"
+#include "../include/menu.h"
 
 Menu::Menu(AssetManager *asset_manager) {
     selected = 0;
@@ -57,6 +57,20 @@ Menu::Menu(AssetManager *asset_manager) {
     apply_text->setFillColor(sf::Color::White);
     apply_text->setPosition(1152, 750);
 
+}
+
+Menu::~Menu() {
+    delete play_text;
+    delete options_text;
+    delete quit_text;
+    delete resolution_text;
+    delete resolution_value_text;
+    delete window_mode_text;
+    delete window_mode_value_text;
+    delete refresh_rate_text;
+    delete refresh_rate_value_text;
+    delete back_text;
+    delete apply_text;
 }
 
 bool Menu::update(sf::Time delta_time, sf::RenderWindow *window) {
@@ -420,18 +434,4 @@ void Menu::applyOptions(sf::RenderWindow *window) {
 
 void Menu::updateTimers(sf::Time delta_time) {
     cooldown = cooldown > delta_time.asMilliseconds() ? cooldown - delta_time.asMilliseconds() : 0;
-}
-
-Menu::~Menu() {
-    delete play_text;
-    delete options_text;
-    delete quit_text;
-    delete resolution_text;
-    delete resolution_value_text;
-    delete window_mode_text;
-    delete window_mode_value_text;
-    delete refresh_rate_text;
-    delete refresh_rate_value_text;
-    delete back_text;
-    delete apply_text;
 }
