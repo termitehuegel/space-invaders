@@ -1,13 +1,10 @@
 #ifndef SPACE_INVADERS_ENEMY_H
 #define SPACE_INVADERS_ENEMY_H
 
-
 #include <SFML/Graphics.hpp>
 #include "projectile.h"
 
 class Enemy {
-private:
-    sf::Sprite sprite;
 public:
     Enemy(sf::Texture *texture, float x, float y);
 
@@ -20,5 +17,8 @@ public:
     bool detectCollision(std::vector<Projectile *> *projectiles);
 
     Projectile *shoot(AssetManager *asset_manager);
+
+private:
+    sf::Sprite sprite;
 };
 #endif

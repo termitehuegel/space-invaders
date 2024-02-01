@@ -10,15 +10,6 @@
  * frame rate of the application.
  */
 class HUD {
-private:
-    GameState *game_state;
-    sf::Text *fps;
-    sf::Text *score_text;
-    sf::Text *score_number;
-    sf::Text *highscore_text;
-    sf::Text *highscore_number;
-    sf::Text *lives_text;
-    sf::Text *lives_number;
 public:
     HUD(AssetManager *asset_manager, GameState *game_state);
 
@@ -30,6 +21,15 @@ public:
      * @param fps the number of frames generated in one second
      */
     void draw(sf::RenderWindow *window, unsigned int fps);
-};
 
+private:
+    GameState *game_state;
+    sf::Text *fps;
+    sf::Text *score_text;
+    sf::Text *score_number;
+    sf::Text *highscore_text;
+    sf::Text *highscore_number;
+    sf::Text *lives_text;
+    sf::Text *lives_number;
+};
 #endif

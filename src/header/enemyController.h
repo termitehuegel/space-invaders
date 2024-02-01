@@ -6,6 +6,17 @@
 #include "gameState.h"
 
 class EnemyController {
+public:
+    EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
+                    AssetManager *asset_manager);
+
+    ~EnemyController();
+
+    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
+                std::vector<Projectile *> *enemy_projectiles);
+
+    void draw(sf::RenderWindow *window);
+
 private:
     AssetManager *asset_manager;
     float speed;
@@ -28,17 +39,5 @@ private:
     bool isEmpty();
 
     void reset();
-
-public:
-    EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
-                    AssetManager *asset_manager);
-
-    ~EnemyController();
-
-    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
-                std::vector<Projectile *> *enemy_projectiles);
-
-    void draw(sf::RenderWindow *window);
 };
-
 #endif
