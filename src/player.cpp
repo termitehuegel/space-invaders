@@ -5,7 +5,7 @@
 #include "../include/projectile.h"
 #include "../include/player.h"
 
-Player::Player(float speed, int reload_time, int invincibility_time, AssetManager* asset_manager, GameState* game_state) {
+Player::Player(float speed, int reload_time, int invincibility_time, AssetManager*asset_manager, GameState* game_state) {
     this->asset_manager = asset_manager;
     this->game_state = game_state;
     this->speed = speed;

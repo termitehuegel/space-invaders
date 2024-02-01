@@ -11,7 +11,7 @@ public:
 
     void update(sf::Time delta_time);
 
-    bool isInBound();
+    bool isInBound() const;
 
     bool collidesWith(sf::FloatRect bounds);
 

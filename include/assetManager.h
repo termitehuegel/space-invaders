@@ -11,7 +11,7 @@ typedef std::map<std::string, sf::Image *> ImageMap;
 
 class AssetManager {
 public:
-    AssetManager(const std::string& asset_base_path);
+    AssetManager(const std::string &asset_base_path);
 
     ~AssetManager();
 
@@ -26,11 +26,11 @@ private:
     FontMap fonts;
     ImageMap images;
 
-    void loadTexture(const std::string& key, const std::string& file_path);
+    void loadTexture(const std::string &key, const std::string &file_path);
 
-    void loadFont(const std::string& key, const std::string& file_path);
+    void loadFont(const std::string &key, const std::string &file_path);
 
-    void loadImage(const std::string& key, const std::string& file_path);
+    void loadImage(const std::string &key, const std::string &file_path);
 };
 
 #endif
