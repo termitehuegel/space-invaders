@@ -121,6 +121,8 @@ private:
 public:
     Menu(AssetManager *asset_manager);
 
+    ~Menu();
+
     bool update(sf::Time delta_time, sf::RenderWindow *window);
 
     /**

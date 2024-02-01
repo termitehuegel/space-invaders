@@ -421,3 +421,17 @@ void Menu::applyOptions(sf::RenderWindow *window) {
 void Menu::updateTimers(sf::Time delta_time) {
     cooldown = cooldown > delta_time.asMilliseconds() ? cooldown - delta_time.asMilliseconds() : 0;
 }
+
+Menu::~Menu() {
+    delete play_text;
+    delete options_text;
+    delete quit_text;
+    delete resolution_text;
+    delete resolution_value_text;
+    delete window_mode_text;
+    delete window_mode_value_text;
+    delete refresh_rate_text;
+    delete refresh_rate_value_text;
+    delete back_text;
+    delete apply_text;
+}

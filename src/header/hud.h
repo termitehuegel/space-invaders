@@ -22,6 +22,8 @@ private:
 public:
     HUD(AssetManager *asset_manager, GameState *game_state);
 
+    ~HUD();
+
     /**
      * This method draws the game state and the provided frame rate on screen.
      * @param window to be drawn to

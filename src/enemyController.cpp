@@ -164,3 +164,14 @@ void EnemyController::reset() {
         }
     }
 }
+
+EnemyController::~EnemyController() {
+    for (int x = 0; x < 11; x++) {
+        for (int y = 0; y < 5; y++) {
+            if (enemies[x][y] == nullptr) {
+                continue;
+            }
+            delete enemies[x][y];
+        }
+    }
+}
