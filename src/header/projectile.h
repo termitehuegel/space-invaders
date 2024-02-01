@@ -10,7 +10,7 @@ private:
     sf::Sprite sprite;
     bool in_bound;
 public:
-    Projectile(float speed, float x, float y, AssetManager* asset_manager);
+    Projectile(float speed, float x, float y, AssetManager *asset_manager);
 
     void draw(sf::RenderWindow *window);
 
@@ -22,5 +22,4 @@ public:
 
     sf::Rect<float> getBounds();
 };
-
 #endif

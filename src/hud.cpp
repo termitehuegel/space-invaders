@@ -61,3 +61,13 @@ void HUD::draw(sf::RenderWindow *window, unsigned int fps) {
     window->draw(*highscore_number);
     window->draw(*lives_number);
 }
+
+HUD::~HUD() {
+    delete fps;
+    delete score_text;
+    delete score_number;
+    delete highscore_text;
+    delete highscore_number;
+    delete lives_text;
+    delete lives_number;
+}

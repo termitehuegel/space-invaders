@@ -102,3 +102,15 @@ void Game::updateQuit(sf::Time delta_time) {
         quit_time = 1500;
     }
 }
+
+Game::~Game() {
+    delete hud;
+    for (Projectile* projectile : player_projectiles) {
+        delete projectile;
+    }
+    for (Projectile* projectile : enemy_projectiles) {
+        delete projectile;
+    }
+    delete player;
+    delete enemy_controller;
+}

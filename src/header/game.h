@@ -27,6 +27,8 @@ private:
 public:
     Game(AssetManager *asset_manger, unsigned int highscore);
 
+    ~Game();
+
     void update(sf::Time delta_time);
 
     void draw(sf::RenderWindow *window);
