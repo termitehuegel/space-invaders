@@ -1,14 +1,9 @@
 #ifndef SPACE_INVADERS_PROJECTILE_H
 #define SPACE_INVADERS_PROJECTILE_H
 
-
 #include "assetManager.h"
 
 class Projectile {
-private:
-    float speed;
-    sf::Sprite sprite;
-    bool in_bound;
 public:
     Projectile(float speed, float x, float y, AssetManager *asset_manager);
 
@@ -21,5 +16,10 @@ public:
     bool collidesWith(sf::FloatRect bounds);
 
     sf::Rect<float> getBounds();
+
+private:
+    float speed;
+    sf::Sprite sprite;
+    bool in_bound;
 };
 #endif

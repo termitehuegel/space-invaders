@@ -6,6 +6,19 @@
 #include "enemyController.h"
 
 class Game {
+public:
+    Game(AssetManager *asset_manger, unsigned int highscore);
+
+    ~Game();
+
+    void update(sf::Time delta_time);
+
+    void draw(sf::RenderWindow *window);
+
+    bool gameOver() const;
+
+    unsigned int highscore() const;
+
 private:
     AssetManager *asset_manager;
     GameState game_state;
@@ -23,19 +36,5 @@ private:
     void updateHighScore();
 
     void updateQuit(sf::Time delta_time);
-
-public:
-    Game(AssetManager *asset_manger, unsigned int highscore);
-
-    ~Game();
-
-    void update(sf::Time delta_time);
-
-    void draw(sf::RenderWindow *window);
-
-    bool gameOver() const;
-
-    unsigned int highscore() const;
 };
-
 #endif

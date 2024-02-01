@@ -9,6 +9,19 @@
  * More specifically it is responsible for drawing and managing the main menu and the options menu.
  */
 class Menu {
+public:
+    Menu(AssetManager *asset_manager);
+
+    ~Menu();
+
+    bool update(sf::Time delta_time, sf::RenderWindow *window);
+
+    /**
+     * Draws the current state of the menu to the provided window.
+     * @param window that the menu should be drawn to
+     */
+    void draw(sf::RenderWindow *window);
+
 private:
     /**
      * The MenuState enum specifies which state the menu can be in.
@@ -117,19 +130,5 @@ private:
     void drawMainMenu(sf::RenderWindow *window);
 
     void drawOptionsMenu(sf::RenderWindow *window);
-
-public:
-    Menu(AssetManager *asset_manager);
-
-    ~Menu();
-
-    bool update(sf::Time delta_time, sf::RenderWindow *window);
-
-    /**
-     * Draws the current state of the menu to the provided window.
-     * @param window that the menu should be drawn to
-     */
-    void draw(sf::RenderWindow *window);
 };
-
 #endif
