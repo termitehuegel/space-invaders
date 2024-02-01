@@ -8,8 +8,6 @@
 class Enemy {
 private:
     sf::Sprite sprite;
-    int cooldown;
-    int reload_time;
 public:
     Enemy(sf::Texture* texture, float x, float y);
     void setPosition(float x, float y);
