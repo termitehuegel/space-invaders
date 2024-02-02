@@ -61,6 +61,7 @@ int main() {
         for (sf::Event event = sf::Event{}; window.pollEvent(event);) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                // Deleting asset_manager to avoid "device not closed" warning by AL lib
                 delete asset_manager;
                 return EXIT_SUCCESS;
             }

@@ -276,6 +276,7 @@ bool Menu::updateMainMenuExecution() {
                 cooldown = 250;
                 break;
             case 2:
+                // Deleting asset_manager to avoid "device not closed" warning by AL lib
                 delete asset_manager;
                 std::exit(EXIT_SUCCESS);
         }
