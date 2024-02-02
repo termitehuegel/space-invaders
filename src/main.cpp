@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-
 #include "../include/assetManager.h"
 #include "../include/game.h"
 #include "../include/menu.h"
@@ -41,7 +40,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Space Invaders", sf::Style::Default);
     sf::Clock clock;
     AssetManager *asset_manager = new AssetManager("assets");
-    Menu *menu = new Menu(asset_manager);
+    Menu menu(asset_manager);
     Game *game = nullptr;
     unsigned int highscore = loadHighscore();
     window.setFramerateLimit(144);
@@ -62,6 +61,7 @@ int main() {
         for (sf::Event event = sf::Event{}; window.pollEvent(event);) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                delete asset_manager;
                 return EXIT_SUCCESS;
             }
         }
@@ -75,11 +75,11 @@ int main() {
                 highscore = game->highscore();
                 saveHighscore(highscore);
             }
-            if (menu->update(delta_time, &window)) {
+            if (menu.update(delta_time, &window)) {
                 delete game;
                 game = new Game(asset_manager, highscore, 1500);
             }
-            menu->draw(&window);
+            menu.draw(&window);
         }
 
         window.display();
