@@ -23,6 +23,7 @@ public:
     void draw(sf::RenderWindow *window);
 
 private:
+    AssetManager *asset_manager;
     /**
      * The MenuState enum specifies which state the menu can be in.
      * More specifically this specifies, which menus are available.
@@ -57,6 +58,8 @@ private:
         Resolution resolution;
         WindowMode window_mode;
         RefreshRate refresh_rate;
+        float music_volume;
+        float sfx_volume;
     };
 
     sf::Sprite background;
@@ -82,8 +85,10 @@ private:
      * 0 => resolution
      * 1 => window mode
      * 2 => refresh rate
-     * 3 => back
-     * 4 => apply
+     * 3 => music volume
+     * 4 => sfx volume
+     * 5 => back
+     * 6 => apply
      */
     unsigned char selected;
     unsigned int cooldown;
@@ -104,11 +109,15 @@ private:
     sf::Text *window_mode_value_text;
     sf::Text *refresh_rate_text;
     sf::Text *refresh_rate_value_text;
+    sf::Text *music_volume_text;
+    sf::Text *music_volume_value_text;
+    sf::Text *sfx_volume_text;
+    sf::Text *sfx_volume_value_text;
     sf::Text *back_text;
     sf::Text *apply_text;
 
     /**
-     * Applies the current options, that are saved in the options field to the provided window.
+     * Applies the current options, that are saved in the options field to the provided window and the saved assert manager.
      * @param window that the options should be applied to
      */
     void applyOptions(sf::RenderWindow *window);

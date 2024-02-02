@@ -1,6 +1,10 @@
 #include "../include/assetManager.h"
 
 AssetManager::AssetManager(const std::string &asset_base_path) {
+    audio_manager.setSFXVolume(50);
+    audio_manager.setMusicVolume(10);
+    audio_manager.setMusicEnabled(true);
+
     loadTexture("background-menu", asset_base_path + "/textures/backgroundMenu.png");
     loadTexture("background", asset_base_path + "/textures/background.png");
     loadTexture("player", asset_base_path + "/textures/player.png");
@@ -30,6 +34,10 @@ AssetManager::~AssetManager() {
     for (std::pair<std::string, sf::Image *> map_entry: images) {
         delete map_entry.second;
     }
+}
+
+AudioManager *AssetManager::getAudioManager() {
+    return &audio_manager;
 }
 
 const TextureMap *AssetManager::getTextures() {

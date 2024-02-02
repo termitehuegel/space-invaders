@@ -1,13 +1,14 @@
 # Space-Invaders
 
 This project is a simple space invader like game written in C++ as a university assignment.
-This project was written and testet on Windows 10. Thus, it is unclear if other operating systems work without major problems.
+This project was written and tested on Windows 10 using CLion.
+Thus, it is unclear if this project is compatible with other operating systems.
 
 ## Setup
 
 If you want to play this game you can get a precompiled binary
-for Windows 10 at https://github.com/termitehuegel/space-invaders/releases/latest, or you may clone this repository and
-compile the project yourself using the CMakeList.txt.
+for Windows 10 (x64 architecture) at https://github.com/termitehuegel/space-invaders/releases/latest,
+or you may clone this repository and compile the project yourself using the CMakeList.txt.
 This project was originally compiled with the visual studio compiler.
 
 ## Controls

@@ -1,11 +1,13 @@
-#include <iostream>
+#include <iomanip>
+#include <sstream>
 #include "../include/menu.h"
 
 Menu::Menu(AssetManager *asset_manager) {
+    this->asset_manager = asset_manager;
     selected = 0;
     cooldown = 0;
     state = MAIN;
-    options = {Options::FULL_HD, Options::WINDOWED, Options::HUNDRED_FORTY_FOUR_HERTZ};
+    options = {Options::FULL_HD, Options::WINDOWED, Options::HUNDRED_FORTY_FOUR_HERTZ, 10, 50};
     sf::Font *cour = asset_manager->getFonts()->at("cour");
 
     // BACKGROUND
@@ -48,6 +50,22 @@ Menu::Menu(AssetManager *asset_manager) {
     refresh_rate_value_text = new sf::Text("", *cour, 50);
     refresh_rate_value_text->setFillColor(sf::Color::White);
     refresh_rate_value_text->setPosition(1152, 400);
+
+    music_volume_text = new sf::Text("music volume", *cour, 50);
+    music_volume_text->setFillColor(sf::Color::White);
+    music_volume_text->setPosition(768 - music_volume_text->getGlobalBounds().getSize().x, 500);
+
+    music_volume_value_text = new sf::Text("", *cour, 50);
+    music_volume_value_text->setFillColor(sf::Color::White);
+    music_volume_value_text->setPosition(1152, 500);
+
+    sfx_volume_text = new sf::Text("sfx volume", *cour, 50);
+    sfx_volume_text->setFillColor(sf::Color::White);
+    sfx_volume_text->setPosition(768 - sfx_volume_text->getGlobalBounds().getSize().x, 600);
+
+    sfx_volume_value_text = new sf::Text("", *cour, 50);
+    sfx_volume_value_text->setFillColor(sf::Color::White);
+    sfx_volume_value_text->setPosition(1152, 600);
 
     back_text = new sf::Text("back", *cour, 50);
     back_text->setFillColor(sf::Color::White);
@@ -135,40 +153,33 @@ void Menu::drawMainMenu(sf::RenderWindow *window) {
 }
 
 void Menu::drawOptionsMenu(sf::RenderWindow *window) {
+    resolution_value_text->setFillColor(sf::Color::White);
+    window_mode_value_text->setFillColor(sf::Color::White);
+    refresh_rate_value_text->setFillColor(sf::Color::White);
+    music_volume_value_text->setFillColor(sf::Color::White);
+    sfx_volume_value_text->setFillColor(sf::Color::White);
+    back_text->setFillColor(sf::Color::White);
+    apply_text->setFillColor(sf::Color::White);
     switch (selected) {
         case 0:
             resolution_value_text->setFillColor(sf::Color::Green);
-            window_mode_value_text->setFillColor(sf::Color::White);
-            refresh_rate_value_text->setFillColor(sf::Color::White);
-            back_text->setFillColor(sf::Color::White);
-            apply_text->setFillColor(sf::Color::White);
             break;
         case 1:
-            resolution_value_text->setFillColor(sf::Color::White);
             window_mode_value_text->setFillColor(sf::Color::Green);
-            refresh_rate_value_text->setFillColor(sf::Color::White);
-            back_text->setFillColor(sf::Color::White);
-            apply_text->setFillColor(sf::Color::White);
             break;
         case 2:
-            resolution_value_text->setFillColor(sf::Color::White);
-            window_mode_value_text->setFillColor(sf::Color::White);
             refresh_rate_value_text->setFillColor(sf::Color::Green);
-            back_text->setFillColor(sf::Color::White);
-            apply_text->setFillColor(sf::Color::White);
             break;
         case 3:
-            resolution_value_text->setFillColor(sf::Color::White);
-            window_mode_value_text->setFillColor(sf::Color::White);
-            refresh_rate_value_text->setFillColor(sf::Color::White);
-            back_text->setFillColor(sf::Color::Green);
-            apply_text->setFillColor(sf::Color::White);
+            music_volume_value_text->setFillColor(sf::Color::Green);
             break;
         case 4:
-            resolution_value_text->setFillColor(sf::Color::White);
-            window_mode_value_text->setFillColor(sf::Color::White);
-            refresh_rate_value_text->setFillColor(sf::Color::White);
-            back_text->setFillColor(sf::Color::White);
+            sfx_volume_value_text->setFillColor(sf::Color::Green);
+            break;
+        case 5:
+            back_text->setFillColor(sf::Color::Green);
+            break;
+        case 6:
             apply_text->setFillColor(sf::Color::Green);
             break;
     }
@@ -209,12 +220,25 @@ void Menu::drawOptionsMenu(sf::RenderWindow *window) {
             break;
     }
 
+    std::stringstream music_volume_stream;
+    music_volume_stream << (selected_options.music_volume > 0 ? "< " : "  ") << selected_options.music_volume
+                        << std::setprecision(0) << (selected_options.music_volume < 100 ? " >" : "  ");
+    music_volume_value_text->setString(music_volume_stream.str());
+    std::stringstream sfx_volume_stream;
+    sfx_volume_stream << (selected_options.sfx_volume > 0 ? "< " : "  ") << selected_options.sfx_volume
+                      << std::setprecision(0) << (selected_options.sfx_volume < 100 ? " >" : "  ");
+    sfx_volume_value_text->setString(sfx_volume_stream.str());
+
     window->draw(*resolution_text);
     window->draw(*resolution_value_text);
     window->draw(*window_mode_text);
     window->draw(*window_mode_value_text);
     window->draw(*refresh_rate_text);
     window->draw(*refresh_rate_value_text);
+    window->draw(*music_volume_text);
+    window->draw(*music_volume_value_text);
+    window->draw(*sfx_volume_text);
+    window->draw(*sfx_volume_value_text);
     window->draw(*back_text);
     window->draw(*apply_text);
 }
@@ -252,6 +276,7 @@ bool Menu::updateMainMenuExecution() {
                 cooldown = 250;
                 break;
             case 2:
+                delete asset_manager;
                 std::exit(EXIT_SUCCESS);
         }
     }
@@ -260,10 +285,10 @@ bool Menu::updateMainMenuExecution() {
 
 void Menu::updateOptionsMenuSelection() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        selected = (selected + 1) % 5;
+        selected = (selected + 1) % 7;
         cooldown = 250;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        selected = (selected - 1) > 5 ? 4 : (selected - 1) % 5;
+        selected = (selected - 1) > 7 ? 6 : (selected - 1) % 7;
         cooldown = 250;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) ||
                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
@@ -313,7 +338,17 @@ void Menu::updateOptionsMenuSelection() {
                 }
                 break;
             case 3:
-                selected = 4;
+                selected_options.music_volume =
+                        selected_options.music_volume + 5 >= 100 ? 100 : selected_options.music_volume + 5;
+                cooldown = 250;
+                break;
+            case 4:
+                selected_options.sfx_volume =
+                        selected_options.sfx_volume + 5 >= 100 ? 100 : selected_options.sfx_volume + 5;
+                cooldown = 250;
+                break;
+            case 5:
+                selected = 6;
                 cooldown = 250;
                 break;
         }
@@ -364,8 +399,18 @@ void Menu::updateOptionsMenuSelection() {
                         break;
                 }
                 break;
+            case 3:
+                selected_options.music_volume =
+                        selected_options.music_volume - 5 <= 0 ? 0 : selected_options.music_volume - 5;
+                cooldown = 250;
+                break;
             case 4:
-                selected = 3;
+                selected_options.sfx_volume =
+                        selected_options.sfx_volume - 5 <= 0 ? 0 : selected_options.sfx_volume - 5;
+                cooldown = 250;
+                break;
+            case 6:
+                selected = 5;
                 cooldown = 250;
                 break;
         }
@@ -380,12 +425,12 @@ void Menu::updateOptionsMenuExecution(sf::RenderWindow *window) {
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) ||
                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         switch (selected) {
-            case 3:
+            case 5:
                 selected = 1;
                 state = MAIN;
                 cooldown = 250;
                 break;
-            case 4:
+            case 6:
                 options = selected_options;
                 applyOptions(window);
                 cooldown = 250;
@@ -419,7 +464,7 @@ void Menu::applyOptions(sf::RenderWindow *window) {
             break;
     }
 
-    switch (selected_options.refresh_rate) {
+    switch (options.refresh_rate) {
         case Options::THIRTY_HERTZ:
             window->setFramerateLimit(30);
             break;
@@ -430,6 +475,10 @@ void Menu::applyOptions(sf::RenderWindow *window) {
             window->setFramerateLimit(144);
             break;
     }
+
+    asset_manager->getAudioManager()->setMusicVolume(options.music_volume);
+    asset_manager->getAudioManager()->setMusicEnabled(options.music_volume > 0);
+    asset_manager->getAudioManager()->setSFXVolume(options.sfx_volume);
 }
 
 void Menu::updateTimers(sf::Time delta_time) {

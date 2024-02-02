@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "SFML/Graphics.hpp"
+#include "audioManager.h"
 
 typedef std::map<std::string, sf::Texture *> TextureMap;
 typedef std::map<std::string, sf::Font *> FontMap;
@@ -15,6 +16,8 @@ public:
 
     ~AssetManager();
 
+    AudioManager *getAudioManager();
+
     const TextureMap *getTextures();
 
     const FontMap *getFonts();
@@ -22,6 +25,7 @@ public:
     const ImageMap *getImages();
 
 private:
+    AudioManager audio_manager;
     TextureMap textures;
     FontMap fonts;
     ImageMap images;

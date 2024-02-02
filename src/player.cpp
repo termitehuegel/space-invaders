@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "../include/projectile.h"
 #include "../include/player.h"
@@ -51,6 +50,7 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile *> *playe
         Projectile *projectile = new Projectile(-1.0f, sprite.getPosition().x + sprite.getTextureRect().getSize().y/2 - 8,
                                                 sprite.getPosition().y - 1, asset_manager);
         player_projectiles->push_back(projectile);
+        asset_manager->getAudioManager()->playShootSFX();
     }
 }
 
