@@ -7,7 +7,7 @@
 
 class EnemyController {
 public:
-    EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
+    EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState *game_state,
                     AssetManager *asset_manager);
 
     ~EnemyController();
@@ -25,14 +25,20 @@ private:
     bool change_direction;
     float step;
     unsigned int reload_cooldown;
-    int reload_time;
+    unsigned int reload_time;
+    unsigned int animation_cooldown;
+    unsigned int animation_time;
     GameState *game_state;
+
+    void updateTimers(sf::Time delta_time);
 
     void updateMovement(sf::Time delta_time);
 
-    void updateCollision(sf::Time delta_time, std::vector<Projectile *> *player_projectiles);
+    void updateCollision(std::vector<Projectile *> *player_projectiles);
 
-    void shoot(sf::Time delta_time, std::vector<Projectile *> *enemy_projectiles);
+    void updateAnimation();
+
+    void shoot(std::vector<Projectile *> *enemy_projectiles);
 
     bool playerReached();
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../include/enemyController.h"
 
-EnemyController::EnemyController(int reload_time, float acceleration, float speed, float step, GameState *game_state,
+EnemyController::EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState *game_state,
                                  AssetManager *asset_manager) {
     this->asset_manager = asset_manager;
     change_direction = false;
@@ -11,6 +11,8 @@ EnemyController::EnemyController(int reload_time, float acceleration, float spee
     this->reload_time = reload_time;
     this->game_state = game_state;
     reload_cooldown = 0;
+    animation_cooldown = 0;
+    animation_time = 500;
     reset();
 }
 
@@ -27,9 +29,11 @@ EnemyController::~EnemyController() {
 
 void EnemyController::update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
                              std::vector<Projectile *> *enemy_projectiles) {
+    updateTimers(delta_time);
     updateMovement(delta_time);
-    updateCollision(delta_time, player_projectiles);
-    shoot(delta_time, enemy_projectiles);
+    updateCollision(player_projectiles);
+    shoot(enemy_projectiles);
+    updateAnimation();
 
     if (playerReached()) {
         game_state->game_over = true;
@@ -79,7 +83,7 @@ void EnemyController::updateMovement(sf::Time delta_time) {
     }
 }
 
-void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectile *> *player_projectiles) {
+void EnemyController::updateCollision(std::vector<Projectile *> *player_projectiles) {
     bool hit = false;
     for (int x = 0; x < 11; x++) {
         for (int y = 0; y < 5; y++) {
@@ -109,8 +113,7 @@ void EnemyController::updateCollision(sf::Time delta_time, std::vector<Projectil
     }
 }
 
-void EnemyController::shoot(sf::Time delta_time, std::vector<Projectile *> *enemy_projectiles) {
-    reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
+void EnemyController::shoot(std::vector<Projectile *> *enemy_projectiles) {
     if (reload_cooldown <= 0) {
         for (int x = 0; x < 11; x++) {
             bool no_shoot = std::rand() % 5;
@@ -174,4 +177,23 @@ void EnemyController::reset() {
             enemies[x][y] = new Enemy(texture, 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
         }
     }
+}
+
+void EnemyController::updateAnimation() {
+    if (animation_cooldown > 0) {
+        return;
+    }
+    animation_cooldown = animation_time;
+    for (int x = 0; x < 11; x++) {
+        for (int y = 0; y < 5; y++) {
+            if (enemies[x][y] != nullptr) {
+                enemies[x][y]->animationStep();
+            }
+        }
+    }
+}
+
+void EnemyController::updateTimers(sf::Time delta_time) {
+    animation_cooldown = animation_cooldown > delta_time.asMilliseconds() ? animation_cooldown - delta_time.asMilliseconds() : 0;
+    reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
 }

@@ -12,6 +12,8 @@ public:
 
     sf::Vector2<float> getPosition();
 
+    void animationStep();
+
     void draw(sf::RenderWindow *window);
 
     bool detectCollision(std::vector<Projectile *> *projectiles);
