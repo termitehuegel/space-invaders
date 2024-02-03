@@ -15,10 +15,18 @@ public:
 
     void playShootSFX();
 
+    void playHitSFX();
+
+    void playGameOverSFX();
+
 private:
     sf::Music music;
     sf::SoundBuffer shoot_sound_buffer;
     sf::Sound shoot_sound;
+    sf::SoundBuffer hit_sound_buffer;
+    sf::Sound hit_sound;
+    sf::SoundBuffer game_over_sound_buffer;
+    sf::Sound game_over_sound;
 };
 
 #endif

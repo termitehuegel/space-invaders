@@ -6,6 +6,12 @@ AudioManager::AudioManager() {
 
     shoot_sound_buffer.loadFromFile("assets/audio/shoot.ogg");
     shoot_sound.setBuffer(shoot_sound_buffer);
+
+    hit_sound_buffer.loadFromFile("assets/audio/hit.ogg");
+    hit_sound.setBuffer(hit_sound_buffer);
+
+    game_over_sound_buffer.loadFromFile("assets/audio/game_over.ogg");
+    game_over_sound.setBuffer(game_over_sound_buffer);
 }
 
 void AudioManager::setMusicVolume(float volume) {
@@ -26,4 +32,12 @@ void AudioManager::setMusicEnabled(bool enable) {
 
 void AudioManager::playShootSFX() {
     shoot_sound.play();
+}
+
+void AudioManager::playHitSFX() {
+    hit_sound.play();
+}
+
+void AudioManager::playGameOverSFX() {
+    game_over_sound.play();
 }

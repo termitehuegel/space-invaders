@@ -58,6 +58,7 @@ void Player::updateCollision(std::vector<Projectile *> *enemy_projectiles) {
     for (std::vector<Projectile*>::iterator iter = enemy_projectiles->begin(); iter != enemy_projectiles->end(); iter++) {
         if ((*iter)->collidesWith(sprite.getGlobalBounds())) {
             if (invincibility_cooldown <= 0) {
+                asset_manager->getAudioManager()->playHitSFX();
                 game_state->lives--;
                 invincibility_cooldown = invincibility_time;
             }
@@ -67,6 +68,7 @@ void Player::updateCollision(std::vector<Projectile *> *enemy_projectiles) {
         }
     }
     if (game_state->lives == 0) {
+        asset_manager->getAudioManager()->playGameOverSFX();
         game_state->game_over = true;
     }
 }
