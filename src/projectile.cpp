@@ -16,7 +16,7 @@ void Projectile::draw(sf::RenderWindow *window) {
 }
 
 void Projectile::update(sf::Time delta_time) {
-    float new_y = sprite.getPosition().y + speed * delta_time.asMilliseconds();
+    float new_y = sprite.getPosition().y + speed * (float) delta_time.asMilliseconds();
     if (new_y < -((float) sprite.getTextureRect().getSize().y) || new_y > 1080) {
         in_bound = false;
     }
@@ -27,10 +27,10 @@ bool Projectile::isInBound() const {
     return in_bound;
 }
 
-bool Projectile::collidesWith(sf::FloatRect bounds) {
+bool Projectile::collidesWith(sf::FloatRect bounds) const {
     return sprite.getGlobalBounds().intersects(bounds);
 }
 
-sf::Rect<float> Projectile::getBounds() {
+sf::Rect<float> Projectile::getBounds() const {
     return sprite.getGlobalBounds();
 }

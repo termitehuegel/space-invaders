@@ -5,17 +5,38 @@
 
 class Projectile {
 public:
+    /**
+     * @param speed that the projectile travels at (vertically). May be negative such that the projectile travels up.
+     */
     Projectile(float speed, float x, float y, AssetManager *asset_manager);
 
+    /**
+     * Draws the projectile on the provides window.
+     */
     void draw(sf::RenderWindow *window);
 
+    /**
+     * Updates all object internals with the provides delta time.
+     */
     void update(sf::Time delta_time);
 
+    /**
+     * Checks if the projectile is still in the bounds of the window.
+     * @return true if the projectile is in the window, false otherwise
+     */
     bool isInBound() const;
 
-    bool collidesWith(sf::FloatRect bounds);
+    /**
+     * Checks if the projectile collides with the provides bounds.
+     * @param bounds that might collide with the projectile
+     * @return true if the bounds collide or false otherwise
+     */
+    bool collidesWith(sf::FloatRect bounds) const;
 
-    sf::Rect<float> getBounds();
+    /**
+     * @return the global bounds of the projectile
+     */
+    sf::Rect<float> getBounds() const;
 
 private:
     float speed;
