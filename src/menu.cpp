@@ -79,15 +79,21 @@ Menu::Menu(AssetManager *asset_manager) {
 }
 
 Menu::~Menu() {
+    // MAIN
     delete play_text;
     delete options_text;
     delete quit_text;
+    // OPTIONS
     delete resolution_text;
     delete resolution_value_text;
     delete window_mode_text;
     delete window_mode_value_text;
     delete refresh_rate_text;
     delete refresh_rate_value_text;
+    delete music_volume_text;
+    delete music_volume_value_text;
+    delete sfx_volume_text;
+    delete sfx_volume_value_text;
     delete back_text;
     delete apply_text;
 }
@@ -115,7 +121,6 @@ bool Menu::updateMainMenu() {
     if (cooldown > 0) {
         return false;
     }
-
     updateMainMenuSelection();
     return updateMainMenuExecution();
 }
@@ -124,7 +129,6 @@ void Menu::updateOptionsMenu(sf::RenderWindow *window) {
     if (cooldown > 0) {
         return;
     }
-
     updateOptionsMenuSelection();
     updateOptionsMenuExecution(window);
 }
@@ -268,6 +272,7 @@ bool Menu::updateMainMenuExecution() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         switch (selected) {
             case 0:
+                // sets a higher cooldown holding a button after losing shouldn't start a new game immediately
                 cooldown = 1000;
                 return true;
             case 1:

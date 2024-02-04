@@ -46,16 +46,12 @@ int main() {
                    asset_manager->getImages()->at("icon")->getSize().y,
                    asset_manager->getImages()->at("icon")->getPixelsPtr());
 
-    /**
-     * This is the detectCollision loop, that draws each frame and processes window events.
-     */
+    // This is the window loop, that draws each frame and processes window events.
     while (window.isOpen()) {
         sf::Time delta_time = clock.getElapsedTime();
         clock.restart();
 
-        /**
-         * Evaluate window events that happened. E.g. terminate if window is closed.
-         */
+        // Evaluate window events that happened. E.g. terminate if window is closed.
         for (sf::Event event = sf::Event{}; window.pollEvent(event);) {
             if (event.type == sf::Event::Closed) {
                 window.close();

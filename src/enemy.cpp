@@ -10,11 +10,11 @@ void Enemy::setPosition(float x, float y) {
     sprite.setPosition(x, y);
 }
 
-void Enemy::draw(sf::RenderWindow *window) {
+void Enemy::draw(sf::RenderWindow *window) const {
     window->draw(sprite);
 }
 
-sf::Vector2<float> Enemy::getPosition() {
+sf::Vector2<float> Enemy::getPosition() const {
     return sprite.getPosition();
 }
 
@@ -29,12 +29,14 @@ bool Enemy::detectCollision(std::vector<Projectile *> *projectiles) {
     return false;
 }
 
-Projectile *Enemy::shoot(AssetManager *asset_manager) {
-    return new Projectile(0.1f, sprite.getPosition().x + sprite.getTextureRect().getSize().x / 2 - 8,
-                          sprite.getPosition().y + sprite.getTextureRect().getSize().y + 1, asset_manager);
+Projectile *Enemy::shoot(AssetManager *asset_manager) const {
+    // assumes that the projectile texture has a width of 16 pixels
+    return new Projectile(0.1f, sprite.getPosition().x + (float) sprite.getTextureRect().getSize().x / 2 - 8,
+                          sprite.getPosition().y + (float) sprite.getTextureRect().getSize().y + 1, asset_manager);
 }
 
 void Enemy::animationStep() {
+    // assumes that the texture of each animation step is 64x64 and there are 3 steps
     int x = (sprite.getTextureRect().getPosition().x + 64) % 192;
     sprite.setTextureRect(sf::IntRect(x, 0, 64, 64));
 }

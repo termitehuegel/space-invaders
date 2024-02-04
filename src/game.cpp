@@ -59,7 +59,7 @@ void Game::update(sf::Time delta_time) {
             iterator++;
         }
     }
-    projectileCollision();
+    updateProjectileCollision();
     updateHighScore();
     updateQuit(delta_time);
 }
@@ -90,7 +90,7 @@ bool Game::gameOver() const {
     return game_state.game_over;
 }
 
-void Game::projectileCollision() {
+void Game::updateProjectileCollision() {
     for (std::vector<Projectile *>::iterator player_projectile_iter = player_projectiles.begin();
          player_projectile_iter != player_projectiles.end();) {
         bool next = true;

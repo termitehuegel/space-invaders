@@ -2,11 +2,11 @@
 
 #include "../include/projectile.h"
 
-Projectile::Projectile(float speed, float x, float y, AssetManager* asset_manager) {
+Projectile::Projectile(float speed, float x, float y, AssetManager *asset_manager) {
     this->speed = speed;
     sprite.setTexture(*asset_manager->getTextures()->at("projectile"));
     sprite.setPosition(x, y);
-    if (sprite.getGlobalBounds().intersects({0, 0, 1920,1080})) {
+    if (sprite.getGlobalBounds().intersects({0, 0, 1920, 1080})) {
         in_bound = true;
     }
 }

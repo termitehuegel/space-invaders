@@ -17,7 +17,7 @@ public:
     BaseFragment(sf::Texture *texture, float x, float y);
 
     /**
-     * Checks if one of the provides projectiles has collided with this fragment and removes the projectile if so.
+     * Checks if one of the provided projectiles has collided with this fragment and removes the projectile if so.
      * @return true if a projectile collided with the base fragment and false otherwise
      */
     bool detectCollision(std::vector<Projectile *> *enemy_projectiles, std::vector<Projectile *> *player_projectiles);
