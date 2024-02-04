@@ -4,8 +4,9 @@
 #include "../include/projectile.h"
 #include "../include/player.h"
 
-Player::Player(float speed, unsigned int reload_time, unsigned int invincibility_time, AssetManager *asset_manager,
-               GameState *game_state) {
+Player::Player(float speed, unsigned int reload_time, unsigned int invincibility_time, AssetManager* asset_manager,
+               GameState* game_state)
+{
     this->asset_manager = asset_manager;
     this->game_state = game_state;
     this->speed = speed;
@@ -19,27 +20,33 @@ Player::Player(float speed, unsigned int reload_time, unsigned int invincibility
     invincibility_display_time = 0;
 }
 
-void Player::draw(sf::RenderWindow *window) {
-    if (display) {
+void Player::draw(sf::RenderWindow* window)
+{
+    if (display)
+    {
         window->draw(sprite);
     }
 }
 
-void Player::update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
-                    std::vector<Projectile *> *enemy_projectiles) {
+void Player::update(sf::Time delta_time, std::vector<Projectile*>* player_projectiles,
+                    std::vector<Projectile*>* enemy_projectiles)
+{
     updateTimers(delta_time);
     updateControl(delta_time, player_projectiles);
     updateCollision(enemy_projectiles);
     updateInvincibilityBlinking();
 }
 
-void Player::updateControl(sf::Time delta_time, std::vector<Projectile *> *player_projectiles) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+void Player::updateControl(sf::Time delta_time, std::vector<Projectile*>* player_projectiles)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
         sprite.setPosition(std::max(sprite.getPosition().x - speed * (float) delta_time.asMilliseconds(), 0.0f),
                            sprite.getPosition().y);
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
         sprite.setPosition(
                 std::min(sprite.getPosition().x + speed * (float) delta_time.asMilliseconds(),
                          1920.0f - (float) sprite.getTextureRect().getSize().x),
@@ -48,10 +55,11 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile *> *playe
 
 
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
-         sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && reload_cooldown <= 0) {
+         sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && reload_cooldown <= 0)
+    {
         reload_cooldown = reload_time;
         // assumes that the projectile texture has a width of 16 pixels
-        Projectile *projectile = new Projectile(-1.0f, sprite.getPosition().x +
+        Projectile* projectile = new Projectile(-1.0f, sprite.getPosition().x +
                                                        (float) sprite.getTextureRect().getSize().y / 2 - 8,
                                                 sprite.getPosition().y - 1, asset_manager);
         player_projectiles->push_back(projectile);
@@ -59,11 +67,15 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile *> *playe
     }
 }
 
-void Player::updateCollision(std::vector<Projectile *> *enemy_projectiles) {
-    for (std::vector<Projectile *>::iterator iter = enemy_projectiles->begin();
-         iter != enemy_projectiles->end(); iter++) {
-        if ((*iter)->collidesWith(sprite.getGlobalBounds())) {
-            if (invincibility_cooldown <= 0) {
+void Player::updateCollision(std::vector<Projectile*>* enemy_projectiles)
+{
+    for (std::vector<Projectile*>::iterator iter = enemy_projectiles->begin();
+         iter != enemy_projectiles->end(); iter++)
+    {
+        if ((*iter)->collidesWith(sprite.getGlobalBounds()))
+        {
+            if (invincibility_cooldown <= 0)
+            {
                 asset_manager->getAudioManager()->playHitSFX();
                 game_state->lives--;
                 invincibility_cooldown = invincibility_time;
@@ -73,13 +85,15 @@ void Player::updateCollision(std::vector<Projectile *> *enemy_projectiles) {
             break;
         }
     }
-    if (game_state->lives == 0) {
+    if (game_state->lives == 0)
+    {
         asset_manager->getAudioManager()->playGameOverSFX();
         game_state->game_over = true;
     }
 }
 
-void Player::updateTimers(sf::Time delta_time) {
+void Player::updateTimers(sf::Time delta_time)
+{
     invincibility_cooldown =
             invincibility_cooldown > delta_time.asMilliseconds() ? invincibility_cooldown - delta_time.asMilliseconds()
                                                                  : 0;
@@ -89,13 +103,17 @@ void Player::updateTimers(sf::Time delta_time) {
     reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
 }
 
-void Player::updateInvincibilityBlinking() {
-    if (invincibility_cooldown > 0) {
-        if (invincibility_display_time <= 0) {
+void Player::updateInvincibilityBlinking()
+{
+    if (invincibility_cooldown > 0)
+    {
+        if (invincibility_display_time <= 0)
+        {
             invincibility_display_time = 200;
             display = !display;
         }
-    } else {
+    } else
+    {
         display = true;
     }
 }

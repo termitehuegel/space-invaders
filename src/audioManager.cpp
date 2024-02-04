@@ -1,6 +1,7 @@
 #include "../include/audioManager.h"
 
-AudioManager::AudioManager(std::string audio_base_path) {
+AudioManager::AudioManager(std::string audio_base_path)
+{
     music.openFromFile(audio_base_path + "/space-invaders.ogg");
     music.setLoop(true);
 
@@ -14,30 +15,38 @@ AudioManager::AudioManager(std::string audio_base_path) {
     game_over_sound.setBuffer(game_over_sound_buffer);
 }
 
-void AudioManager::setMusicVolume(float volume) {
+void AudioManager::setMusicVolume(float volume)
+{
     music.setVolume(volume);
 }
 
-void AudioManager::setSFXVolume(float volume) {
+void AudioManager::setSFXVolume(float volume)
+{
     shoot_sound.setVolume(volume);
 }
 
-void AudioManager::setMusicEnabled(bool enable) {
-    if (enable) {
+void AudioManager::setMusicEnabled(bool enable)
+{
+    if (enable)
+    {
         music.play();
-    } else {
+    } else
+    {
         music.stop();
     }
 }
 
-void AudioManager::playShootSFX() {
+void AudioManager::playShootSFX()
+{
     shoot_sound.play();
 }
 
-void AudioManager::playHitSFX() {
+void AudioManager::playHitSFX()
+{
     hit_sound.play();
 }
 
-void AudioManager::playGameOverSFX() {
+void AudioManager::playGameOverSFX()
+{
     game_over_sound.play();
 }

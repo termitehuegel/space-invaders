@@ -6,14 +6,15 @@
 #include "SFML/Graphics.hpp"
 #include "audioManager.h"
 
-typedef std::map<std::string, sf::Texture *> TextureMap;
-typedef std::map<std::string, sf::Font *> FontMap;
-typedef std::map<std::string, sf::Image *> ImageMap;
+typedef std::map<std::string, sf::Texture*> TextureMap;
+typedef std::map<std::string, sf::Font*> FontMap;
+typedef std::map<std::string, sf::Image*> ImageMap;
 
 /**
  * The AssetManager is responsible for loading, unloading and providing assets such as textures, fonts, images and audio.
  */
-class AssetManager {
+class AssetManager
+{
 public:
     /**
      * @param asset_base_path searches for needed assets under this base path
@@ -22,25 +23,25 @@ public:
 
     ~AssetManager();
 
-    AudioManager *getAudioManager();
+    AudioManager* getAudioManager();
 
-    const TextureMap *getTextures();
+    const TextureMap* getTextures();
 
-    const FontMap *getFonts();
+    const FontMap* getFonts();
 
-    const ImageMap *getImages();
+    const ImageMap* getImages();
 
 private:
-    AudioManager *audio_manager;
+    AudioManager* audio_manager;
     TextureMap textures;
     FontMap fonts;
     ImageMap images;
 
-    void loadTexture(const std::string &key, const std::string &file_path);
+    void loadTexture(const std::string& key, const std::string& file_path);
 
-    void loadFont(const std::string &key, const std::string &file_path);
+    void loadFont(const std::string& key, const std::string& file_path);
 
-    void loadImage(const std::string &key, const std::string &file_path);
+    void loadImage(const std::string& key, const std::string& file_path);
 };
 
 #endif

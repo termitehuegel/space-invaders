@@ -3,14 +3,15 @@
 
 #include "assetManager.h"
 
-class Projectile {
+class Projectile
+{
 public:
     /**
      * @param speed that the projectile travels at (vertically). May be negative such that the projectile travels up.
      */
-    Projectile(float speed, float x, float y, AssetManager *asset_manager);
+    Projectile(float speed, float x, float y, AssetManager* asset_manager);
 
-    void draw(sf::RenderWindow *window) const;
+    void draw(sf::RenderWindow* window) const;
 
     void update(sf::Time delta_time);
 

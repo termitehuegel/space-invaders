@@ -2,10 +2,11 @@
 
 #include "../include/hud.h"
 
-HUD::HUD(AssetManager *asset_manager, GameState *game_state) {
+HUD::HUD(AssetManager* asset_manager, GameState* game_state)
+{
     this->game_state = game_state;
 
-    sf::Font *cour = asset_manager->getFonts()->at("cour");
+    sf::Font* cour = asset_manager->getFonts()->at("cour");
 
     fps = new sf::Text("FPS:10", *cour, 15);
     score_text = new sf::Text("SCORE", *cour, 50);
@@ -35,7 +36,8 @@ HUD::HUD(AssetManager *asset_manager, GameState *game_state) {
     highscore_number->setPosition(1600, 75);
 }
 
-HUD::~HUD() {
+HUD::~HUD()
+{
     delete fps;
     delete score_text;
     delete score_number;
@@ -45,15 +47,18 @@ HUD::~HUD() {
     delete lives_number;
 }
 
-void HUD::draw(sf::RenderWindow *window, unsigned int fps) {
+void HUD::draw(sf::RenderWindow* window, unsigned int fps)
+{
     std::string score_string = std::to_string(game_state->score);
     std::string highscore_string = std::to_string(game_state->highscore);
 
-    if (score_string.length() < 5) {
+    if (score_string.length() < 5)
+    {
         score_string.insert(0, 5 - score_string.length(), '0');
     }
 
-    if (highscore_string.length() < 5) {
+    if (highscore_string.length() < 5)
+    {
         highscore_string.insert(0, 5 - highscore_string.length(), '0');
     }
 

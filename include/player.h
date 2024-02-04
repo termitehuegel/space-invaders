@@ -5,23 +5,25 @@
 #include "gameState.h"
 #include "projectile.h"
 
-class Player {
+class Player
+{
 public:
     /**
      * @param speed that the player moves at
      * @param reload_time the time between shots in milliseconds
      * @param invincibility_time the time the player is invincible for if hit in milliseconds
      */
-    Player(float speed, unsigned int reload_time, unsigned int invincibility_time, AssetManager *asset_manager, GameState *game_state);
+    Player(float speed, unsigned int reload_time, unsigned int invincibility_time, AssetManager* asset_manager,
+           GameState* game_state);
 
-    void draw(sf::RenderWindow *window);
+    void draw(sf::RenderWindow* window);
 
-    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
-                std::vector<Projectile *> *enemy_projectiles);
+    void update(sf::Time delta_time, std::vector<Projectile*>* player_projectiles,
+                std::vector<Projectile*>* enemy_projectiles);
 
 private:
-    AssetManager *asset_manager;
-    GameState *game_state;
+    AssetManager* asset_manager;
+    GameState* game_state;
     sf::Sprite sprite;
     float speed;
     unsigned int reload_cooldown;
@@ -48,12 +50,12 @@ private:
     /**
      * Evaluates player input and controls the player in response.
      */
-    void updateControl(sf::Time delta_time, std::vector<Projectile *> *player_projectiles);
+    void updateControl(sf::Time delta_time, std::vector<Projectile*>* player_projectiles);
 
     /**
      * Evaluates if the player collides with any projectiles and reduces health accordingly.
      */
-    void updateCollision(std::vector<Projectile *> *enemy_projectiles);
+    void updateCollision(std::vector<Projectile*>* enemy_projectiles);
 
     /**
      * Changes the visibility of the player when the invincibility cooldown is over.
