@@ -1,6 +1,6 @@
 #include "../include/assetManager.h"
 
-AssetManager::AssetManager(const std::string &asset_base_path) {
+AssetManager::AssetManager(std::string asset_base_path) {
     audio_manager = new AudioManager(asset_base_path + "/audio");
     audio_manager->setSFXVolume(50);
     audio_manager->setMusicVolume(10);

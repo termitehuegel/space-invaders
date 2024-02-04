@@ -1,6 +1,8 @@
 #include "../include/base.h"
 
 Base::Base(AssetManager *asset_manager, float x, float y) {
+    // The coordinates of the base fragments are determined by counting the pixels from the start of
+    // the base (texture) to the start of the fragments texture
     base_fragments[0] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-1"), x + 45, y + 5);
     base_fragments[1] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-2"), x + 35, y + 21);
     base_fragments[2] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-3"), x + 20, y + 0);
@@ -30,7 +32,7 @@ void Base::update(std::vector<Projectile *> *enemy_projectiles, std::vector<Proj
     }
 }
 
-void Base::draw(sf::RenderWindow *window) {
+void Base::draw(sf::RenderWindow *window) const {
     for (BaseFragment *base_fragment: base_fragments) {
         if (base_fragment == nullptr) {
             continue;
