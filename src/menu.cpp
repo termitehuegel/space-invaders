@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <sstream>
+
 #include "../include/menu.h"
 
 Menu::Menu(AssetManager *asset_manager) {

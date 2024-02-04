@@ -1,5 +1,4 @@
 #include <cmath>
-#include <iostream>
 
 #include "../include/game.h"
 

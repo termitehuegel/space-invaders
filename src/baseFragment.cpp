@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/baseFragment.h"
 
 BaseFragment::BaseFragment(sf::Texture *texture, float x, float y) {
