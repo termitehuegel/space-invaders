@@ -10,14 +10,8 @@ public:
      */
     Projectile(float speed, float x, float y, AssetManager *asset_manager);
 
-    /**
-     * Draws the projectile on the provides window.
-     */
-    void draw(sf::RenderWindow *window);
+    void draw(sf::RenderWindow *window) const;
 
-    /**
-     * Updates all object internals with the provides delta time.
-     */
     void update(sf::Time delta_time);
 
     /**

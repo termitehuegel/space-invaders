@@ -11,7 +11,7 @@ Projectile::Projectile(float speed, float x, float y, AssetManager* asset_manage
     }
 }
 
-void Projectile::draw(sf::RenderWindow *window) {
+void Projectile::draw(sf::RenderWindow *window) const {
     window->draw(sprite);
 }
 

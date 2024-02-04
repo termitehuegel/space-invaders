@@ -1,6 +1,6 @@
 #include "../include/audioManager.h"
 
-AudioManager::AudioManager(const std::string &audio_base_path) {
+AudioManager::AudioManager(std::string audio_base_path) {
     music.openFromFile(audio_base_path + "/space-invaders.ogg");
     music.setLoop(true);
 

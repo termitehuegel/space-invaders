@@ -3,14 +3,25 @@
 
 #include <SFML/Audio.hpp>
 
+/**
+ * This class is responsible for loading and playing music and sounds.
+ * All instances of this class need to be destroyed before exiting the program to avoid a "device not closed" warning.
+ */
 class AudioManager {
 public:
-    AudioManager(const std::string &audio_base_path);
+    /**
+     * @param asset_base_path searches for needed audio under this base path
+     */
+    AudioManager(std::string audio_base_path);
 
     void setMusicVolume(float volume);
 
     void setSFXVolume(float volume);
 
+    /**
+     * Enables or disables the background music depending on the provides parameter.
+     * @param enable enables the music if true and disables it otherwise
+     */
     void setMusicEnabled(bool enable);
 
     void playShootSFX();

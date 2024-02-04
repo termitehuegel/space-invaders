@@ -2,7 +2,7 @@
 
 BaseFragment::BaseFragment(sf::Texture *texture, float x, float y) {
     sprite.setTexture(*texture);
-    sprite.setPosition((float) x, (float) y);
+    sprite.setPosition(x, y);
 }
 
 bool BaseFragment::detectCollision(std::vector<Projectile *> *enemy_projectiles,
@@ -26,6 +26,6 @@ bool BaseFragment::detectCollision(std::vector<Projectile *> *enemy_projectiles,
     return false;
 }
 
-void BaseFragment::draw(sf::RenderWindow *window) {
+void BaseFragment::draw(sf::RenderWindow *window) const {
     window->draw(sprite);
 }

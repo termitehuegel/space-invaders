@@ -10,9 +10,15 @@ typedef std::map<std::string, sf::Texture *> TextureMap;
 typedef std::map<std::string, sf::Font *> FontMap;
 typedef std::map<std::string, sf::Image *> ImageMap;
 
+/**
+ * The AssetManager is responsible for loading, unloading and providing assets such as textures, fonts, images and audio.
+ */
 class AssetManager {
 public:
-    AssetManager(const std::string &asset_base_path);
+    /**
+     * @param asset_base_path searches for needed assets under this base path
+     */
+    AssetManager(std::string asset_base_path);
 
     ~AssetManager();
 
