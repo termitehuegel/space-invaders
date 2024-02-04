@@ -1,16 +1,16 @@
 #include "../include/audioManager.h"
 
-AudioManager::AudioManager() {
-    music.openFromFile("assets/audio/space-invaders.ogg");
+AudioManager::AudioManager(const std::string &audio_base_path) {
+    music.openFromFile(audio_base_path + "/space-invaders.ogg");
     music.setLoop(true);
 
-    shoot_sound_buffer.loadFromFile("assets/audio/shoot.ogg");
+    shoot_sound_buffer.loadFromFile(audio_base_path + "/shoot.ogg");
     shoot_sound.setBuffer(shoot_sound_buffer);
 
-    hit_sound_buffer.loadFromFile("assets/audio/hit.ogg");
+    hit_sound_buffer.loadFromFile(audio_base_path + "/hit.ogg");
     hit_sound.setBuffer(hit_sound_buffer);
 
-    game_over_sound_buffer.loadFromFile("assets/audio/game_over.ogg");
+    game_over_sound_buffer.loadFromFile(audio_base_path + "/game_over.ogg");
     game_over_sound.setBuffer(game_over_sound_buffer);
 }
 

@@ -25,7 +25,7 @@ public:
     const ImageMap *getImages();
 
 private:
-    AudioManager audio_manager;
+    AudioManager *audio_manager;
     TextureMap textures;
     FontMap fonts;
     ImageMap images;

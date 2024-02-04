@@ -5,7 +5,7 @@
 
 class AudioManager {
 public:
-    AudioManager();
+    AudioManager(const std::string &audio_base_path);
 
     void setMusicVolume(float volume);
 
