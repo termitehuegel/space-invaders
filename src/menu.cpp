@@ -3,13 +3,14 @@
 
 #include "../include/menu.h"
 
-Menu::Menu(AssetManager *asset_manager) {
+Menu::Menu(AssetManager* asset_manager)
+{
     this->asset_manager = asset_manager;
     selected = 0;
     cooldown = 0;
     state = MAIN;
     options = {Options::FULL_HD, Options::WINDOWED, Options::HUNDRED_FORTY_FOUR_HERTZ, 10, 50};
-    sf::Font *cour = asset_manager->getFonts()->at("cour");
+    sf::Font* cour = asset_manager->getFonts()->at("cour");
 
     // BACKGROUND
     background.setTexture(*asset_manager->getTextures()->at("background-menu"));
@@ -78,7 +79,8 @@ Menu::Menu(AssetManager *asset_manager) {
 
 }
 
-Menu::~Menu() {
+Menu::~Menu()
+{
     // MAIN
     delete play_text;
     delete options_text;
@@ -98,43 +100,55 @@ Menu::~Menu() {
     delete apply_text;
 }
 
-bool Menu::update(sf::Time delta_time, sf::RenderWindow *window) {
+bool Menu::update(sf::Time delta_time, sf::RenderWindow* window)
+{
     updateTimers(delta_time);
-    if (state == MenuState::MAIN) {
+    if (state == MenuState::MAIN)
+    {
         return updateMainMenu();
-    } else if (state == MenuState::OPTIONS) {
+    } else if (state == MenuState::OPTIONS)
+    {
         updateOptionsMenu(window);
     }
     return false;
 }
 
-void Menu::draw(sf::RenderWindow *window) {
+void Menu::draw(sf::RenderWindow* window)
+{
     window->draw(background);
-    if (state == MAIN) {
+    if (state == MAIN)
+    {
         drawMainMenu(window);
-    } else if (state == OPTIONS) {
+    } else if (state == OPTIONS)
+    {
         drawOptionsMenu(window);
     }
 }
 
-bool Menu::updateMainMenu() {
-    if (cooldown > 0) {
+bool Menu::updateMainMenu()
+{
+    if (cooldown > 0)
+    {
         return false;
     }
     updateMainMenuSelection();
     return updateMainMenuExecution();
 }
 
-void Menu::updateOptionsMenu(sf::RenderWindow *window) {
-    if (cooldown > 0) {
+void Menu::updateOptionsMenu(sf::RenderWindow* window)
+{
+    if (cooldown > 0)
+    {
         return;
     }
     updateOptionsMenuSelection();
     updateOptionsMenuExecution(window);
 }
 
-void Menu::drawMainMenu(sf::RenderWindow *window) {
-    switch (selected) {
+void Menu::drawMainMenu(sf::RenderWindow* window)
+{
+    switch (selected)
+    {
         case 0:
             play_text->setFillColor(sf::Color::Green);
             options_text->setFillColor(sf::Color::White);
@@ -157,7 +171,8 @@ void Menu::drawMainMenu(sf::RenderWindow *window) {
     window->draw(*quit_text);
 }
 
-void Menu::drawOptionsMenu(sf::RenderWindow *window) {
+void Menu::drawOptionsMenu(sf::RenderWindow* window)
+{
     resolution_value_text->setFillColor(sf::Color::White);
     window_mode_value_text->setFillColor(sf::Color::White);
     refresh_rate_value_text->setFillColor(sf::Color::White);
@@ -165,7 +180,8 @@ void Menu::drawOptionsMenu(sf::RenderWindow *window) {
     sfx_volume_value_text->setFillColor(sf::Color::White);
     back_text->setFillColor(sf::Color::White);
     apply_text->setFillColor(sf::Color::White);
-    switch (selected) {
+    switch (selected)
+    {
         case 0:
             resolution_value_text->setFillColor(sf::Color::Green);
             break;
@@ -189,7 +205,8 @@ void Menu::drawOptionsMenu(sf::RenderWindow *window) {
             break;
     }
 
-    switch (selected_options.resolution) {
+    switch (selected_options.resolution)
+    {
         case Options::QUARTER_HD:
             resolution_value_text->setString("  640 x 360 >");
             break;
@@ -204,7 +221,8 @@ void Menu::drawOptionsMenu(sf::RenderWindow *window) {
             break;
     }
 
-    switch (selected_options.window_mode) {
+    switch (selected_options.window_mode)
+    {
         case Options::WINDOWED:
             window_mode_value_text->setString("< windowed >");
             break;
@@ -213,7 +231,8 @@ void Menu::drawOptionsMenu(sf::RenderWindow *window) {
             break;
     }
 
-    switch (selected_options.refresh_rate) {
+    switch (selected_options.refresh_rate)
+    {
         case Options::THIRTY_HERTZ:
             refresh_rate_value_text->setString("  30 Hz >");
             break;
@@ -248,29 +267,38 @@ void Menu::drawOptionsMenu(sf::RenderWindow *window) {
     window->draw(*apply_text);
 }
 
-void Menu::updateMainMenuSelection() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+void Menu::updateMainMenuSelection()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+    {
         selected = (selected + 1) % 3;
         cooldown = 250;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) ||
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+    {
         selected = (selected - 1) > 3 ? 2 : (selected - 1) % 3;
         cooldown = 250;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
+    {
         selected = 0;
         cooldown = 250;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) {
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O))
+    {
         selected = 1;
         cooldown = 250;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+    {
         selected = 2;
         cooldown = 250;
     }
 }
 
-bool Menu::updateMainMenuExecution() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-        switch (selected) {
+bool Menu::updateMainMenuExecution()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+    {
+        switch (selected)
+        {
             case 0:
                 // sets a higher cooldown holding a button after losing shouldn't start a new game immediately
                 cooldown = 1000;
@@ -283,6 +311,7 @@ bool Menu::updateMainMenuExecution() {
                 break;
             case 2:
                 // Deleting asset_manager to avoid "device not closed" warning by AL lib
+                // Freeing the rest of the memory is left to the operating system
                 delete asset_manager;
                 std::exit(EXIT_SUCCESS);
         }
@@ -290,18 +319,24 @@ bool Menu::updateMainMenuExecution() {
     return false;
 }
 
-void Menu::updateOptionsMenuSelection() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+void Menu::updateOptionsMenuSelection()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+    {
         selected = (selected + 1) % 7;
         cooldown = 250;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+    {
         selected = (selected - 1) > 7 ? 6 : (selected - 1) % 7;
         cooldown = 250;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) ||
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        switch (selected) {
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+    {
+        switch (selected)
+        {
             case 0:
-                switch (selected_options.resolution) {
+                switch (selected_options.resolution)
+                {
                     case Options::QUARTER_HD:
                         selected_options.resolution = Options::HD;
                         cooldown = 250;
@@ -319,7 +354,8 @@ void Menu::updateOptionsMenuSelection() {
                 }
                 break;
             case 1:
-                switch (selected_options.window_mode) {
+                switch (selected_options.window_mode)
+                {
                     case Options::WINDOWED:
                         selected_options.window_mode = Options::BORDERLESS;
                         cooldown = 250;
@@ -331,7 +367,8 @@ void Menu::updateOptionsMenuSelection() {
                 }
                 break;
             case 2:
-                switch (selected_options.refresh_rate) {
+                switch (selected_options.refresh_rate)
+                {
                     case Options::THIRTY_HERTZ:
                         selected_options.refresh_rate = Options::SIXTY_HERTZ;
                         cooldown = 250;
@@ -360,10 +397,13 @@ void Menu::updateOptionsMenuSelection() {
                 break;
         }
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) ||
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        switch (selected) {
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+    {
+        switch (selected)
+        {
             case 0:
-                switch (selected_options.resolution) {
+                switch (selected_options.resolution)
+                {
                     case Options::QUARTER_HD:
                         break;
                     case Options::HD:
@@ -381,7 +421,8 @@ void Menu::updateOptionsMenuSelection() {
                 }
                 break;
             case 1:
-                switch (selected_options.window_mode) {
+                switch (selected_options.window_mode)
+                {
                     case Options::WINDOWED:
                         selected_options.window_mode = Options::BORDERLESS;
                         cooldown = 250;
@@ -393,7 +434,8 @@ void Menu::updateOptionsMenuSelection() {
                 }
                 break;
             case 2:
-                switch (selected_options.refresh_rate) {
+                switch (selected_options.refresh_rate)
+                {
                     case Options::THIRTY_HERTZ:
                         break;
                     case Options::SIXTY_HERTZ:
@@ -424,14 +466,18 @@ void Menu::updateOptionsMenuSelection() {
     }
 }
 
-void Menu::updateOptionsMenuExecution(sf::RenderWindow *window) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+void Menu::updateOptionsMenuExecution(sf::RenderWindow* window)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
         selected = 1;
         state = MAIN;
         cooldown = 250;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) ||
-               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-        switch (selected) {
+               sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+    {
+        switch (selected)
+        {
             case 5:
                 selected = 1;
                 state = MAIN;
@@ -446,8 +492,10 @@ void Menu::updateOptionsMenuExecution(sf::RenderWindow *window) {
     }
 }
 
-void Menu::applyOptions(sf::RenderWindow *window) {
-    switch (options.window_mode) {
+void Menu::applyOptions(sf::RenderWindow* window)
+{
+    switch (options.window_mode)
+    {
         case Options::WINDOWED:
             window->create(sf::VideoMode(1920, 1080), "Space Invaders", sf::Style::Default);
             break;
@@ -456,7 +504,8 @@ void Menu::applyOptions(sf::RenderWindow *window) {
             break;
     }
 
-    switch (options.resolution) {
+    switch (options.resolution)
+    {
         case Options::QUARTER_HD:
             window->setSize({640, 360});
             break;
@@ -471,7 +520,8 @@ void Menu::applyOptions(sf::RenderWindow *window) {
             break;
     }
 
-    switch (options.refresh_rate) {
+    switch (options.refresh_rate)
+    {
         case Options::THIRTY_HERTZ:
             window->setFramerateLimit(30);
             break;
@@ -488,6 +538,7 @@ void Menu::applyOptions(sf::RenderWindow *window) {
     asset_manager->getAudioManager()->setSFXVolume(options.sfx_volume);
 }
 
-void Menu::updateTimers(sf::Time delta_time) {
+void Menu::updateTimers(sf::Time delta_time)
+{
     cooldown = cooldown > delta_time.asMilliseconds() ? cooldown - delta_time.asMilliseconds() : 0;
 }

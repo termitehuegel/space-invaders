@@ -9,9 +9,10 @@
  * It draws essential information about the game state on the screen and informs the player about the
  * frame rate of the application.
  */
-class HUD {
+class HUD
+{
 public:
-    HUD(AssetManager *asset_manager, GameState *game_state);
+    HUD(AssetManager* asset_manager, GameState* game_state);
 
     ~HUD();
 
@@ -20,17 +21,17 @@ public:
      * @param window to be drawn to
      * @param fps the number of frames generated in one second
      */
-    void draw(sf::RenderWindow *window, unsigned int fps);
+    void draw(sf::RenderWindow* window, unsigned int fps);
 
 private:
-    GameState *game_state;
-    sf::Text *fps;
-    sf::Text *score_text;
-    sf::Text *score_number;
-    sf::Text *highscore_text;
-    sf::Text *highscore_number;
-    sf::Text *lives_text;
-    sf::Text *lives_number;
+    GameState* game_state;
+    sf::Text* fps;
+    sf::Text* score_text;
+    sf::Text* score_number;
+    sf::Text* highscore_text;
+    sf::Text* highscore_number;
+    sf::Text* lives_text;
+    sf::Text* lives_number;
 };
 
 #endif

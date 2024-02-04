@@ -9,19 +9,20 @@
 /**
  * The Game class controls the all game specific elements and updates them when needed.
  */
-class Game {
+class Game
+{
 public:
     /**
      * @param highscore the starting highscore
      * @param quit_time the time the player needs to hold escape to quit the game
      */
-    Game(AssetManager *asset_manger, unsigned int highscore, unsigned int quit_time);
+    Game(AssetManager* asset_manger, unsigned int highscore, unsigned int quit_time);
 
     ~Game();
 
     void update(sf::Time delta_time);
 
-    void draw(sf::RenderWindow *window);
+    void draw(sf::RenderWindow* window);
 
     /**
      * @return if the game is over
@@ -34,14 +35,14 @@ public:
     unsigned int highscore() const;
 
 private:
-    AssetManager *asset_manager;
+    AssetManager* asset_manager;
     GameState game_state;
-    HUD *hud;
-    std::vector<Projectile *> player_projectiles;
-    std::vector<Projectile *> enemy_projectiles;
-    Base *bases[5];
-    Player *player;
-    EnemyController *enemy_controller;
+    HUD* hud;
+    std::vector<Projectile*> player_projectiles;
+    std::vector<Projectile*> enemy_projectiles;
+    Base* bases[5];
+    Player* player;
+    EnemyController* enemy_controller;
     sf::Sprite background;
     unsigned int fps;
     unsigned int quit_cooldown;

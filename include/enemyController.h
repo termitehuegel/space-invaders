@@ -9,7 +9,8 @@
  * The EnemyController is responsible for all enemies.
  * It manages the positions of the enemies, their animation steps, collisions and shooting.
  */
-class EnemyController {
+class EnemyController
+{
 public:
     /**
      * @param reload_time the time between shoots (multiple columns might shoot at once)
@@ -17,21 +18,21 @@ public:
      * @param speed the starting speed of the enemies
      * @param step the length the enemies move towards the player when they reach the edge
      */
-    EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState *game_state,
-                    AssetManager *asset_manager);
+    EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState* game_state,
+                    AssetManager* asset_manager);
 
     ~EnemyController();
 
-    void update(sf::Time delta_time, std::vector<Projectile *> *player_projectiles,
-                std::vector<Projectile *> *enemy_projectiles);
+    void update(sf::Time delta_time, std::vector<Projectile*>* player_projectiles,
+                std::vector<Projectile*>* enemy_projectiles);
 
-    void draw(sf::RenderWindow *window);
+    void draw(sf::RenderWindow* window);
 
 private:
-    AssetManager *asset_manager;
+    AssetManager* asset_manager;
     float speed;
     float acceleration;
-    Enemy *enemies[11][5];
+    Enemy* enemies[11][5];
     bool change_direction;
     float step;
     unsigned int reload_cooldown;
@@ -44,7 +45,7 @@ private:
      * The time in milliseconds between each animation step
      */
     unsigned int animation_time;
-    GameState *game_state;
+    GameState* game_state;
 
     /**
      * Reduces all cooldowns
@@ -59,7 +60,7 @@ private:
     /**
      * Checks if any projectiles collide with an enemy and destroy both if so.
      */
-    void updateCollision(std::vector<Projectile *> *player_projectiles);
+    void updateCollision(std::vector<Projectile*>* player_projectiles);
 
     /**
      * Updates all animation steps of the enemies if the animation cooldown has ended.
@@ -70,7 +71,7 @@ private:
      * Allows the enemies to randomly shoot when there is no reload cooldown.
      * And appends the projectiles to the provided vector.
      */
-    void shoot(std::vector<Projectile *> *enemy_projectiles);
+    void shoot(std::vector<Projectile*>* enemy_projectiles);
 
     /**
      * @return true if the height of the player is reached and false otherwise

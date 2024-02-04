@@ -7,7 +7,8 @@
  * This class is responsible for loading and playing music and sounds.
  * All instances of this class need to be destroyed before exiting the program to avoid a "device not closed" warning.
  */
-class AudioManager {
+class AudioManager
+{
 public:
     /**
      * @param asset_base_path searches for needed audio under this base path

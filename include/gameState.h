@@ -8,7 +8,8 @@
  * What is the current score?
  * What is the highscore;
  */
-struct GameState {
+struct GameState
+{
     bool game_over;
     unsigned int score;
     unsigned int highscore;
