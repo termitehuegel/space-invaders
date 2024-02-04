@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/enemyController.h"
 
 EnemyController::EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState *game_state,

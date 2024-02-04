@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/base.h"
 
 Base::Base(AssetManager *asset_manager, float x, float y) {

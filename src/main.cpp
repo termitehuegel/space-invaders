@@ -1,7 +1,5 @@
-#include <chrono>
 #include <fstream>
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "../include/assetManager.h"
 #include "../include/game.h"
