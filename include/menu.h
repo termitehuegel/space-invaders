@@ -16,10 +16,6 @@ public:
 
     bool update(sf::Time delta_time, sf::RenderWindow *window);
 
-    /**
-     * Draws the current state of the menu to the provided window.
-     * @param window that the menu should be drawn to
-     */
     void draw(sf::RenderWindow *window);
 
 private:
@@ -91,6 +87,9 @@ private:
      * 6 => apply
      */
     unsigned char selected;
+    /**
+     * interaction cooldown to avoid unintentional double inputs
+     */
     unsigned int cooldown;
 
     /**
@@ -122,6 +121,9 @@ private:
      */
     void applyOptions(sf::RenderWindow *window);
 
+    /**
+     * Reduces all cooldowns
+     */
     void updateTimers(sf::Time delta_time);
 
     void updateMainMenuSelection();
@@ -132,6 +134,9 @@ private:
 
     void updateOptionsMenuExecution(sf::RenderWindow *window);
 
+    /**
+     * @return true if a new game should be started and false otherwise
+     */
     bool updateMainMenu();
 
     void updateOptionsMenu(sf::RenderWindow *window);

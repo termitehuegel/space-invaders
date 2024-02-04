@@ -1,6 +1,7 @@
 #include "../include/enemyController.h"
 
-EnemyController::EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState *game_state,
+EnemyController::EnemyController(unsigned int reload_time, float acceleration, float speed, float step,
+                                 GameState *game_state,
                                  AssetManager *asset_manager) {
     this->asset_manager = asset_manager;
     change_direction = false;
@@ -35,6 +36,7 @@ void EnemyController::update(sf::Time delta_time, std::vector<Projectile *> *pla
     updateAnimation();
 
     if (playerReached()) {
+        asset_manager->getAudioManager()->playGameOverSFX();
         game_state->game_over = true;
     }
 }
@@ -83,14 +85,12 @@ void EnemyController::updateMovement(sf::Time delta_time) {
 }
 
 void EnemyController::updateCollision(std::vector<Projectile *> *player_projectiles) {
-    bool hit = false;
     for (int x = 0; x < 11; x++) {
         for (int y = 0; y < 5; y++) {
             if (enemies[x][y] == nullptr) {
                 continue;
             }
             if (enemies[x][y]->detectCollision(player_projectiles)) {
-                hit = true;
                 delete enemies[x][y];
                 enemies[x][y] = nullptr;
                 game_state->score += 100;
@@ -113,18 +113,19 @@ void EnemyController::updateCollision(std::vector<Projectile *> *player_projecti
 }
 
 void EnemyController::shoot(std::vector<Projectile *> *enemy_projectiles) {
-    if (reload_cooldown <= 0) {
-        for (int x = 0; x < 11; x++) {
-            bool no_shoot = std::rand() % 5;
-            if (no_shoot) {
-                continue;
-            }
-            for (int y = 4; y >= 0; y--) {
-                if (enemies[x][y] != nullptr) {
-                    enemy_projectiles->push_back(enemies[x][y]->shoot(asset_manager));
-                    reload_cooldown = reload_time;
-                    break;
-                }
+    if (reload_cooldown > 0) {
+        return;
+    }
+    for (int x = 0; x < 11; x++) {
+        bool no_shoot = std::rand() % 5;
+        if (no_shoot) {
+            continue;
+        }
+        for (int y = 4; y >= 0; y--) {
+            if (enemies[x][y] != nullptr) {
+                enemy_projectiles->push_back(enemies[x][y]->shoot(asset_manager));
+                reload_cooldown = reload_time;
+                break;
             }
         }
     }
@@ -193,6 +194,7 @@ void EnemyController::updateAnimation() {
 }
 
 void EnemyController::updateTimers(sf::Time delta_time) {
-    animation_cooldown = animation_cooldown > delta_time.asMilliseconds() ? animation_cooldown - delta_time.asMilliseconds() : 0;
+    animation_cooldown =
+            animation_cooldown > delta_time.asMilliseconds() ? animation_cooldown - delta_time.asMilliseconds() : 0;
     reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
 }

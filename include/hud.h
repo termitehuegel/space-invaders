@@ -6,7 +6,7 @@
 
 /**
  * The HUD class manages the heads up display.
- * It draws essential informations about the game state on the screen and informs the player about the
+ * It draws essential information about the game state on the screen and informs the player about the
  * frame rate of the application.
  */
 class HUD {
