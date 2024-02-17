@@ -169,9 +169,9 @@ void EnemyController::shoot(std::vector<Projectile*>* enemy_projectiles)
 
 bool EnemyController::playerReached()
 {
-    for (int x = 0; x < 11; x++)
+    for (int y = 4; y >= 0; y--)
     {
-        for (int y = 4; y >= 0; y--)
+        for (int x = 0; x < 11; x++)
         {
             if (enemies[x][y] == nullptr)
             {
