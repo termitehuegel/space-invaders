@@ -15,7 +15,7 @@ Game::Game(AssetManager* asset_manger, unsigned int highscore, unsigned int quit
 
     for (int i = 0; i < 5; i++)
     {
-        bases[i] = new Base(asset_manger, (float) (232 + 344 * i), 900.0f);
+        bases[i] = new Base(asset_manger, static_cast<float>(232 + 344 * i), 900.0f);
     }
 }
 
