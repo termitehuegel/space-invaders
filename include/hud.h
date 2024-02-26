@@ -14,6 +14,8 @@ class HUD
 public:
     HUD(AssetManager* asset_manager, GameState* game_state);
 
+    HUD(const HUD& hud);
+
     ~HUD();
 
     /**

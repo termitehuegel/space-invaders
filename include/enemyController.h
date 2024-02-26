@@ -21,6 +21,8 @@ public:
     EnemyController(unsigned int reload_time, float acceleration, float speed, float step, GameState* game_state,
                     AssetManager* asset_manager);
 
+    EnemyController(const EnemyController& enemy_controller);
+
     ~EnemyController();
 
     void update(sf::Time delta_time, std::vector<Projectile*>* player_projectiles,

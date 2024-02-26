@@ -1,3 +1,4 @@
+#include "../include/commons.h"
 #include "../include/base.h"
 
 Base::Base(AssetManager* asset_manager, float x, float y)
@@ -12,15 +13,18 @@ Base::Base(AssetManager* asset_manager, float x, float y)
     base_fragments[5] = new BaseFragment(asset_manager->getTextures()->at("base-fragment-6"), x + 0, y + 0);
 }
 
+Base::Base(const Base& base)
+{
+    for (int i = 0; i < 6; i++) {
+        base_fragments[i] = base.base_fragments[i] != nullptr ? new BaseFragment(*base.base_fragments[i]): nullptr;
+    }
+}
+
 Base::~Base()
 {
     for (BaseFragment* base_fragment: base_fragments)
     {
-        if (base_fragment == nullptr)
-        {
-            continue;
-        }
-        delete base_fragment;
+        saveDelete(base_fragment);
     }
 }
 
@@ -34,8 +38,7 @@ void Base::update(std::vector<Projectile*>* enemy_projectiles, std::vector<Proje
         }
         if (base_fragments[i]->detectCollision(enemy_projectiles, player_projectiles))
         {
-            delete base_fragments[i];
-            base_fragments[i] = nullptr;
+            saveDelete(base_fragments[i]);
         }
     }
 }

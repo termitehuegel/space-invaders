@@ -34,6 +34,8 @@ add_executable(space-invaders src/main.cpp
         src/baseFragment.cpp
         include/audioManager.h
         src/audioManager.cpp
+        include/commons.h
+        src/commons.cpp
 )
 target_link_libraries(space-invaders PRIVATE sfml-graphics sfml-audio)
 target_compile_features(space-invaders PRIVATE cxx_std_17)

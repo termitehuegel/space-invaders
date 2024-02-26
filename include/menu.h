@@ -11,11 +11,26 @@
 class Menu
 {
 public:
+    /**
+     * Them Action enum specifies which actions can be emitted by the menu.
+     */
+    enum Action {
+        NONE,
+        START_GAME,
+        QUIT
+    };
+
     Menu(AssetManager* asset_manager);
+
+    Menu(const Menu& menu);
 
     ~Menu();
 
-    bool update(sf::Time delta_time, sf::RenderWindow* window);
+    /**
+     * Updates the state of the menu.
+     * @return The Action that has been chosen.
+     */
+    Action update(sf::Time delta_time, sf::RenderWindow* window);
 
     void draw(sf::RenderWindow* window);
 
@@ -134,16 +149,19 @@ private:
 
     void updateMainMenuSelection();
 
-    bool updateMainMenuExecution();
+    /**
+     * @return The Action that should be triggered
+     */
+    Action updateMainMenuExecution();
 
     void updateOptionsMenuSelection();
 
     void updateOptionsMenuExecution(sf::RenderWindow* window);
 
     /**
-     * @return true if a new game should be started and false otherwise
+     * @return The Action that should be triggered
      */
-    bool updateMainMenu();
+    Action updateMainMenu();
 
     void updateOptionsMenu(sf::RenderWindow* window);
 

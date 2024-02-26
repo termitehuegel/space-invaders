@@ -18,6 +18,8 @@ public:
      */
     Game(AssetManager* asset_manger, unsigned int highscore, unsigned int quit_time);
 
+    Game(const Game& game);
+
     ~Game();
 
     void update(sf::Time delta_time);

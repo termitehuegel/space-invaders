@@ -1,3 +1,4 @@
+#include "../include/commons.h"
 #include "../include/enemyController.h"
 
 EnemyController::EnemyController(unsigned int reload_time, float acceleration, float speed, float step,
@@ -17,17 +18,34 @@ EnemyController::EnemyController(unsigned int reload_time, float acceleration, f
     reset();
 }
 
+EnemyController::EnemyController(const EnemyController& enemy_controller)
+{
+    asset_manager = enemy_controller.asset_manager;
+    speed = enemy_controller.speed;
+    acceleration = enemy_controller.acceleration;
+    for (int x = 0; x < 11; x++)
+    {
+        for (int y = 0; y < 5; y++)
+        {
+            enemies[x][y] = enemy_controller.enemies[x][y] != nullptr ? new Enemy(*enemy_controller.enemies[x][y]) : nullptr;
+        }
+    }
+    change_direction = enemy_controller.change_direction;
+    step = enemy_controller.step;
+    reload_cooldown = enemy_controller.reload_cooldown;
+    reload_time = enemy_controller.reload_time;
+    animation_cooldown = enemy_controller.animation_cooldown;
+    animation_time = enemy_controller.animation_time;
+    game_state = enemy_controller.game_state;
+}
+
 EnemyController::~EnemyController()
 {
     for (int x = 0; x < 11; x++)
     {
         for (int y = 0; y < 5; y++)
         {
-            if (enemies[x][y] == nullptr)
-            {
-                continue;
-            }
-            delete enemies[x][y];
+            saveDelete(enemies[x][y]);
         }
     }
 }
@@ -116,8 +134,7 @@ void EnemyController::updateCollision(std::vector<Projectile*>* player_projectil
             }
             if (enemies[x][y]->detectCollision(player_projectiles))
             {
-                delete enemies[x][y];
-                enemies[x][y] = nullptr;
+                saveDelete(enemies[x][y]);
                 game_state->score += 100;
                 if (speed >= 0)
                 {

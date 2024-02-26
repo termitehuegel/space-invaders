@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 
+#include "../include/commons.h"
 #include "../include/projectile.h"
 #include "../include/player.h"
 
@@ -80,7 +81,7 @@ void Player::updateCollision(std::vector<Projectile*>* enemy_projectiles)
                 game_state->lives--;
                 invincibility_cooldown = invincibility_time;
             }
-            delete *iter;
+            saveDelete(*iter);
             enemy_projectiles->erase(iter);
             break;
         }

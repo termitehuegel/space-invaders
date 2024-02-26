@@ -13,7 +13,9 @@ public:
     /**
      * @param asset_base_path searches for needed audio under this base path
      */
-    AudioManager(std::string audio_base_path);
+    AudioManager(std::string base_path);
+
+    AudioManager(const AudioManager& audio_manager);
 
     void setMusicVolume(float volume);
 
@@ -32,6 +34,7 @@ public:
     void playGameOverSFX();
 
 private:
+    std::string base_path;
     sf::Music music;
     sf::SoundBuffer shoot_sound_buffer;
     sf::Sound shoot_sound;
