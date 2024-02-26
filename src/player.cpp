@@ -11,7 +11,7 @@ Player::Player(float speed, unsigned int reload_time, unsigned int invincibility
     this->game_state = game_state;
     this->speed = speed;
     sprite.setTexture(*asset_manager->getTextures()->at("player"));
-    sprite.setPosition(960.0f - (float) sprite.getTextureRect().getSize().y / 2.0f, 980.0f);
+    sprite.setPosition(960.0f - static_cast<float>(sprite.getTextureRect().getSize().y) / 2.0f, 980.0f);
     this->reload_time = reload_time;
     reload_cooldown = 0;
     display = true;
@@ -41,15 +41,15 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile*>* player
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        sprite.setPosition(std::max(sprite.getPosition().x - speed * (float) delta_time.asMilliseconds(), 0.0f),
+        sprite.setPosition(std::max(sprite.getPosition().x - speed * static_cast<float>(delta_time.asMilliseconds()), 0.0f),
                            sprite.getPosition().y);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         sprite.setPosition(
-                std::min(sprite.getPosition().x + speed * (float) delta_time.asMilliseconds(),
-                         1920.0f - (float) sprite.getTextureRect().getSize().x),
+                std::min(sprite.getPosition().x + speed * static_cast<float>(delta_time.asMilliseconds()),
+                         static_cast<float>(1920 - sprite.getTextureRect().getSize().x)),
                 sprite.getPosition().y);
     }
 
@@ -60,8 +60,8 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile*>* player
         reload_cooldown = reload_time;
         // assumes that the projectile texture has a width of 16 pixels
         Projectile* projectile = new Projectile(-1.0f, sprite.getPosition().x +
-                                                       (float) sprite.getTextureRect().getSize().y / 2 - 8,
-                                                sprite.getPosition().y - 1, asset_manager);
+                                                       static_cast<float>(sprite.getTextureRect().getSize().y) / 2.0f - 8.0f,
+                                                sprite.getPosition().y - 1.0f, asset_manager);
         player_projectiles->push_back(projectile);
         asset_manager->getAudioManager()->playShootSFX();
     }
@@ -94,12 +94,8 @@ void Player::updateCollision(std::vector<Projectile*>* enemy_projectiles)
 
 void Player::updateTimers(sf::Time delta_time)
 {
-    invincibility_cooldown =
-            invincibility_cooldown > delta_time.asMilliseconds() ? invincibility_cooldown - delta_time.asMilliseconds()
-                                                                 : 0;
-    invincibility_display_time = invincibility_display_time > delta_time.asMilliseconds() ? invincibility_display_time -
-                                                                                            delta_time.asMilliseconds()
-                                                                                          : 0;
+    invincibility_cooldown = invincibility_cooldown > delta_time.asMilliseconds() ? invincibility_cooldown - delta_time.asMilliseconds(): 0;
+    invincibility_display_time = invincibility_display_time > delta_time.asMilliseconds() ? invincibility_display_time -delta_time.asMilliseconds(): 0;
     reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
 }
 

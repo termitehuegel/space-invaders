@@ -80,7 +80,7 @@ void EnemyController::updateMovement(sf::Time delta_time)
                 continue;
             }
             sf::Vector2<float> position = enemies[x][y]->getPosition();
-            float new_x = position.x + speed * (float) delta_time.asMilliseconds();
+            float new_x = position.x + speed * static_cast<float>(delta_time.asMilliseconds());
             float new_y = position.y;
             if (change_direction)
             {
@@ -222,7 +222,7 @@ void EnemyController::reset()
         }
         for (int x = 0; x < 11; x++)
         {
-            enemies[x][y] = new Enemy(texture, 150.0f + (float) x * 150, 200.0f + (float) y * 75.0f);
+            enemies[x][y] = new Enemy(texture, static_cast<float>(150 + x * 150), + static_cast<float>(200 + y * 75));
         }
     }
 }
@@ -248,7 +248,6 @@ void EnemyController::updateAnimation()
 
 void EnemyController::updateTimers(sf::Time delta_time)
 {
-    animation_cooldown =
-            animation_cooldown > delta_time.asMilliseconds() ? animation_cooldown - delta_time.asMilliseconds() : 0;
+    animation_cooldown =animation_cooldown > delta_time.asMilliseconds() ? animation_cooldown - delta_time.asMilliseconds() : 0;
     reload_cooldown = reload_cooldown > delta_time.asMilliseconds() ? reload_cooldown - delta_time.asMilliseconds() : 0;
 }

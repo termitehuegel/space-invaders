@@ -20,8 +20,8 @@ void Projectile::draw(sf::RenderWindow* window) const
 
 void Projectile::update(sf::Time delta_time)
 {
-    float new_y = sprite.getPosition().y + speed * (float) delta_time.asMilliseconds();
-    if (new_y < -((float) sprite.getTextureRect().getSize().y) || new_y > 1080)
+    float new_y = sprite.getPosition().y + speed * static_cast<float>(delta_time.asMilliseconds());
+    if (new_y < static_cast<float>(-sprite.getTextureRect().getSize().y) || new_y > 1080)
     {
         in_bound = false;
     }

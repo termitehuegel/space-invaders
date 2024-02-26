@@ -39,8 +39,8 @@ bool Enemy::detectCollision(std::vector<Projectile*>* projectiles)
 Projectile* Enemy::shoot(AssetManager* asset_manager) const
 {
     // assumes that the projectile texture has a width of 16 pixels
-    return new Projectile(0.1f, sprite.getPosition().x + (float) sprite.getTextureRect().getSize().x / 2 - 8,
-                          sprite.getPosition().y + (float) sprite.getTextureRect().getSize().y + 1, asset_manager);
+    return new Projectile(0.1f, sprite.getPosition().x + + static_cast<float>(sprite.getTextureRect().getSize().x) / 2.0f - 8.0f,
+                          sprite.getPosition().y + static_cast<float>(sprite.getTextureRect().getSize().y + 1), asset_manager);
 }
 
 void Enemy::animationStep()
