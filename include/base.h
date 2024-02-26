@@ -14,6 +14,8 @@ class Base
 public:
     Base(AssetManager* asset_manager, float x, float y);
 
+    Base(const Base& base);
+
     ~Base();
 
     void update(std::vector<Projectile*>* enemy_projectiles, std::vector<Projectile*>* player_projectiles);

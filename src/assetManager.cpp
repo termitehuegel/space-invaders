@@ -1,3 +1,4 @@
+#include "../include/commons.h"
 #include "../include/assetManager.h"
 
 AssetManager::AssetManager(std::string asset_base_path)
@@ -26,20 +27,28 @@ AssetManager::AssetManager(std::string asset_base_path)
     loadImage("icon", asset_base_path + "/icons/icon.png");
 }
 
+AssetManager::AssetManager(const AssetManager& asset_manager)
+{
+    audio_manager = new AudioManager(*asset_manager.audio_manager);
+    textures = asset_manager.textures;
+    fonts = asset_manager.fonts;
+    images = asset_manager.images;
+}
+
 AssetManager::~AssetManager()
 {
-    delete audio_manager;
+    saveDelete(audio_manager);
     for (std::pair<std::string, sf::Texture*> map_entry: textures)
     {
-        delete map_entry.second;
+        saveDelete(map_entry.second);
     }
     for (std::pair<std::string, sf::Font*> map_entry: fonts)
     {
-        delete map_entry.second;
+        saveDelete(map_entry.second);
     }
     for (std::pair<std::string, sf::Image*> map_entry: images)
     {
-        delete map_entry.second;
+        saveDelete(map_entry.second);
     }
 }
 

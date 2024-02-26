@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "../include/commons.h"
 #include "../include/game.h"
 
 Game::Game(AssetManager* asset_manger, unsigned int highscore, unsigned int quit_time)
@@ -19,22 +20,50 @@ Game::Game(AssetManager* asset_manger, unsigned int highscore, unsigned int quit
     }
 }
 
+Game::Game(const Game& game)
+{
+    asset_manager = game.asset_manager;
+    game_state = game.game_state;
+    hud = new HUD(*game.hud);
+    player_projectiles.reserve(game.player_projectiles.size());
+    for (Projectile* projectile: game.player_projectiles)
+    {
+        player_projectiles.push_back(new Projectile(*projectile));
+    }
+    enemy_projectiles.reserve(game.enemy_projectiles.size());
+    for (Projectile* projectile: game.enemy_projectiles)
+    {
+        enemy_projectiles.push_back(new Projectile(*projectile));
+    }
+    for (int i = 0; i < 5; i++)
+    {
+        bases[i] = game.bases[i] != nullptr ? new Base(*game.bases[i]) : nullptr;
+    }
+    player = new Player(*game.player);
+    enemy_controller = new EnemyController(*game.enemy_controller);
+    background = game.background;
+    fps = game.fps;
+    quit_cooldown = game.quit_cooldown;
+}
+
 Game::~Game()
 {
-    delete hud;
+    saveDelete(hud);
     for (Projectile* projectile: player_projectiles)
     {
-        delete projectile;
+        saveDelete(projectile);
     }
+    player_projectiles = {};
     for (Projectile* projectile: enemy_projectiles)
     {
-        delete projectile;
+        saveDelete(projectile);
     }
-    delete player;
-    delete enemy_controller;
+    enemy_projectiles = {};
+    saveDelete(player);
+    saveDelete(enemy_controller);
     for (Base* base: bases)
     {
-        delete base;
+        saveDelete(base);
     }
 }
 
@@ -53,7 +82,7 @@ void Game::update(sf::Time delta_time)
         (*iterator)->update(delta_time);
         if (!(*iterator)->isInBound())
         {
-            delete *iterator;
+            saveDelete(*iterator);
             iterator = player_projectiles.erase(iterator);
         } else
         {
@@ -66,7 +95,7 @@ void Game::update(sf::Time delta_time)
         (*iterator)->update(delta_time);
         if (!(*iterator)->isInBound())
         {
-            delete *iterator;
+            saveDelete(*iterator);
             iterator = enemy_projectiles.erase(iterator);
         } else
         {
@@ -122,8 +151,8 @@ void Game::updateProjectileCollision()
         {
             if ((*player_projectile_iter)->collidesWith((*enemy_projectile_iter)->getBounds()))
             {
-                delete *enemy_projectile_iter;
-                delete *player_projectile_iter;
+                saveDelete(*enemy_projectile_iter);
+                saveDelete(*player_projectile_iter);
                 enemy_projectiles.erase(enemy_projectile_iter);
                 player_projectile_iter = player_projectiles.erase(player_projectile_iter);
                 next = false;

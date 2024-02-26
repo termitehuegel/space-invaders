@@ -1,3 +1,4 @@
+#include "../include/commons.h"
 #include "../include/baseFragment.h"
 
 BaseFragment::BaseFragment(sf::Texture* texture, float x, float y)
@@ -14,7 +15,7 @@ bool BaseFragment::detectCollision(std::vector<Projectile*>* enemy_projectiles,
     {
         if ((*iter)->collidesWith(sprite.getGlobalBounds()))
         {
-            delete *iter;
+            saveDelete(*iter);
             enemy_projectiles->erase(iter);
             return true;
         }
@@ -24,7 +25,7 @@ bool BaseFragment::detectCollision(std::vector<Projectile*>* enemy_projectiles,
     {
         if ((*iter)->collidesWith(sprite.getGlobalBounds()))
         {
-            delete *iter;
+            saveDelete(*iter);
             player_projectiles->erase(iter);
             return true;
         }

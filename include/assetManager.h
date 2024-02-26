@@ -21,6 +21,8 @@ public:
      */
     AssetManager(std::string asset_base_path);
 
+    AssetManager(const AssetManager& asset_manager);
+
     ~AssetManager();
 
     AudioManager* getAudioManager();

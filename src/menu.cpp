@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <sstream>
 
+#include "../include/commons.h"
 #include "../include/menu.h"
 
 Menu::Menu(AssetManager* asset_manager)
@@ -79,28 +80,56 @@ Menu::Menu(AssetManager* asset_manager)
 
 }
 
+Menu::Menu(const Menu& menu)
+{
+    asset_manager = menu.asset_manager;
+    background = menu.background;
+    state = menu.state;
+    options = menu.options;
+    selected_options = menu.selected_options;
+    selected = menu.selected;
+    cooldown = menu.cooldown;
+    // MAIN
+    play_text = new sf::Text(*menu.play_text);
+    options_text = new sf::Text(*menu.options_text);
+    quit_text = new sf::Text(*menu.quit_text);
+    // OPTIONS
+    resolution_text = new sf::Text(*menu.resolution_text);
+    resolution_value_text = new sf::Text(*menu.resolution_value_text);
+    window_mode_text = new sf::Text(*menu.window_mode_text);
+    window_mode_value_text = new sf::Text(*menu.window_mode_value_text);
+    refresh_rate_text = new sf::Text(*menu.refresh_rate_text);
+    refresh_rate_value_text = new sf::Text(*menu.refresh_rate_value_text);
+    music_volume_text = new sf::Text(*menu.music_volume_text);
+    music_volume_value_text = new sf::Text(*menu.music_volume_value_text);
+    sfx_volume_text = new sf::Text(*menu.sfx_volume_text);
+    sfx_volume_value_text = new sf::Text(*menu.sfx_volume_value_text);
+    back_text = new sf::Text(*menu.back_text);
+    apply_text = new sf::Text(*menu.apply_text);
+}
+
 Menu::~Menu()
 {
     // MAIN
-    delete play_text;
-    delete options_text;
-    delete quit_text;
+    saveDelete(play_text);
+    saveDelete(options_text);
+    saveDelete(quit_text);
     // OPTIONS
-    delete resolution_text;
-    delete resolution_value_text;
-    delete window_mode_text;
-    delete window_mode_value_text;
-    delete refresh_rate_text;
-    delete refresh_rate_value_text;
-    delete music_volume_text;
-    delete music_volume_value_text;
-    delete sfx_volume_text;
-    delete sfx_volume_value_text;
-    delete back_text;
-    delete apply_text;
+    saveDelete(resolution_text);
+    saveDelete(resolution_value_text);
+    saveDelete(window_mode_text);
+    saveDelete(window_mode_value_text);
+    saveDelete(refresh_rate_text);
+    saveDelete(refresh_rate_value_text);
+    saveDelete(music_volume_text);
+    saveDelete(music_volume_value_text);
+    saveDelete(sfx_volume_text);
+    saveDelete(sfx_volume_value_text);
+    saveDelete(back_text);
+    saveDelete(apply_text);
 }
 
-bool Menu::update(sf::Time delta_time, sf::RenderWindow* window)
+Menu::Action Menu::update(sf::Time delta_time, sf::RenderWindow* window)
 {
     updateTimers(delta_time);
     if (state == MenuState::MAIN)
@@ -110,7 +139,7 @@ bool Menu::update(sf::Time delta_time, sf::RenderWindow* window)
     {
         updateOptionsMenu(window);
     }
-    return false;
+    return NONE;
 }
 
 void Menu::draw(sf::RenderWindow* window)
@@ -125,11 +154,11 @@ void Menu::draw(sf::RenderWindow* window)
     }
 }
 
-bool Menu::updateMainMenu()
+Menu::Action Menu::updateMainMenu()
 {
     if (cooldown > 0)
     {
-        return false;
+        return NONE;
     }
     updateMainMenuSelection();
     return updateMainMenuExecution();
@@ -293,7 +322,7 @@ void Menu::updateMainMenuSelection()
     }
 }
 
-bool Menu::updateMainMenuExecution()
+Menu::Action Menu::updateMainMenuExecution()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
@@ -302,21 +331,18 @@ bool Menu::updateMainMenuExecution()
             case 0:
                 // sets a higher cooldown holding a button after losing shouldn't start a new game immediately
                 cooldown = 1000;
-                return true;
+                return START_GAME;
             case 1:
                 state = OPTIONS;
                 selected_options = options;
                 selected = 0;
                 cooldown = 250;
-                break;
+                return NONE;
             case 2:
-                // Deleting asset_manager to avoid "device not closed" warning by AL lib
-                // Freeing the rest of the memory is left to the operating system
-                delete asset_manager;
-                std::exit(EXIT_SUCCESS);
+                return QUIT;
         }
     }
-    return false;
+    return NONE;
 }
 
 void Menu::updateOptionsMenuSelection()

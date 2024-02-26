@@ -1,3 +1,4 @@
+#include "../include/commons.h"
 #include "../include/enemy.h"
 
 Enemy::Enemy(sf::Texture* texture, float x, float y)
@@ -28,7 +29,7 @@ bool Enemy::detectCollision(std::vector<Projectile*>* projectiles)
     {
         if ((*iter)->collidesWith(sprite.getGlobalBounds()))
         {
-            delete *iter;
+            saveDelete(*iter);
             projectiles->erase(iter);
             return true;
         }
