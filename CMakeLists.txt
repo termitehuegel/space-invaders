@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(space-invaders VERSION 1.0.1.0 HOMEPAGE_URL https://github.com/termitehuegel/space-invaders LANGUAGES CXX)
+project(space-invaders VERSION 1.0.1.1 HOMEPAGE_URL https://github.com/termitehuegel/space-invaders LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
