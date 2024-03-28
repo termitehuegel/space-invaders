@@ -3,6 +3,8 @@
 This project is a simple space invader like game written in C++ as a university assignment.
 This project was written and tested on Windows 10 using CLion.
 Thus, it is unclear if this project is compatible with other operating systems.
+It uses the [SFML-Library](https://www.sfml-dev.org/) and uses the [SFML-CMake-Project-Template](https://www.sfml-dev.org/tutorials/2.6/start-cmake.php)
+as its foundation.
 
 ## Setup
 
@@ -14,19 +16,22 @@ This project was originally compiled with the visual studio compiler.
 ## Controls
 ### Menu
 
-| Key         | Action              |
-|:------------|:--------------------|
-| ENTER       | SELECT              |
-| SPACE       | SELECT              |
-| ESCAPE      | BACK                |
-| W           | MOVE SELECTED UP    |
-| ARROW-UP    | MOVE SELECTED UP    |
-| S           | MOVE SELECTED DOWN  |
-| ARROW-DOWN  | MOVE SELECTED DOWN  |
-| D           | MOVE SELECTED RIGHT |
-| ARROW-RIGHT | MOVE SELECTED RIGHT |
-| A           | MOVE SELECTED LEFT  |
-| ARROW-LEFT  | MOVE SELECTED LEFT  |
+| Key           | Action              |
+|:--------------|:--------------------|
+| ENTER         | SELECT              |
+| SPACE         | SELECT              |
+| ESCAPE        | BACK                |
+| W             | MOVE SELECTED UP    |
+| ARROW-UP      | MOVE SELECTED UP    |
+| S             | MOVE SELECTED DOWN  |
+| ARROW-DOWN    | MOVE SELECTED DOWN  |
+| D             | MOVE SELECTED RIGHT |
+| ARROW-RIGHT   | MOVE SELECTED RIGHT |
+| A             | MOVE SELECTED LEFT  |
+| ARROW-LEFT    | MOVE SELECTED LEFT  |
+| P (MAIN-MENU) | JUMP TO PLAY        |
+| O (MAIN-MENU) | JUMP TO OPTIONS     |
+| Q (MAIN-MENU) | JUMP TO QUIT        |
 
 
 ### Game
@@ -37,7 +42,7 @@ This project was originally compiled with the visual studio compiler.
 | W             | SHOOT                    |
 | ARROW-UP      | SHOOT                    |
 | A             | MOVE LEFT                |
-| ARROW-LEFT    | MOVE-LEFT                |
-| D             | MOVE-RIGHT               |
-| ARROW-RIGHT   | MOVE-RIGHT               |
+| ARROW-LEFT    | MOVE LEFT                |
+| D             | MOVE RIGHT               |
+| ARROW-RIGHT   | MOVE RIGHT               |
 | ESCAPE (HOLD) | GIVE UP (RETURN TO MENU) |

@@ -298,23 +298,28 @@ void Menu::drawOptionsMenu(sf::RenderWindow* window)
 
 void Menu::updateMainMenuSelection()
 {
+    // S | Arrow-Down moves the selection cursor down
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         selected = (selected + 1) % 3;
         cooldown = 250;
+    // W | Arrow-Up moves the selection cursor up
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) ||
                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         selected = (selected - 1) > 3 ? 2 : (selected - 1) % 3;
         cooldown = 250;
+    // P ist used to jump to play the play option
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
     {
         selected = 0;
         cooldown = 250;
+    // O ist used to jump to the options option
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O))
     {
         selected = 1;
         cooldown = 250;
+    // q is used to jump to the quit option
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
     {
         selected = 2;
@@ -324,6 +329,7 @@ void Menu::updateMainMenuSelection()
 
 Menu::Action Menu::updateMainMenuExecution()
 {
+    // Space | Enter executes the selected option
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
         switch (selected)
@@ -347,14 +353,17 @@ Menu::Action Menu::updateMainMenuExecution()
 
 void Menu::updateOptionsMenuSelection()
 {
+    // S | Arrow-Down moves the selection cursor down
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         selected = (selected + 1) % 7;
         cooldown = 250;
+    // W | Arrow-Up moves the selection cursor up
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         selected = (selected - 1) > 7 ? 6 : (selected - 1) % 7;
         cooldown = 250;
+    // D | Arrow-Right increases the selected option
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) ||
                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
     {
@@ -422,6 +431,7 @@ void Menu::updateOptionsMenuSelection()
                 cooldown = 250;
                 break;
         }
+    // A | Arrow-Left decreases the selected option
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) ||
                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
     {
@@ -494,11 +504,13 @@ void Menu::updateOptionsMenuSelection()
 
 void Menu::updateOptionsMenuExecution(sf::RenderWindow* window)
 {
+    // Escape closes the options menu and returns to the main menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         selected = 1;
         state = MAIN;
         cooldown = 250;
+    // Space | Enter is used to execute the selected element
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) ||
                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {

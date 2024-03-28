@@ -40,12 +40,14 @@ void Player::update(sf::Time delta_time, std::vector<Projectile*>* player_projec
 
 void Player::updateControl(sf::Time delta_time, std::vector<Projectile*>* player_projectiles)
 {
+    // A | Arrow-Left moves the player to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         sprite.setPosition(std::max(sprite.getPosition().x - speed * static_cast<float>(delta_time.asMilliseconds()), 0.0f),
                            sprite.getPosition().y);
     }
 
+    // D | Arrow-Right moves the player to the right
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         sprite.setPosition(
@@ -54,7 +56,7 @@ void Player::updateControl(sf::Time delta_time, std::vector<Projectile*>* player
                 sprite.getPosition().y);
     }
 
-
+    // Space | W | Arrow-Up lets the player shoot
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
          sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && reload_cooldown <= 0)
     {
