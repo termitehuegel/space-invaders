@@ -181,6 +181,7 @@ void Game::updateHighScore()
 
 void Game::updateQuit(sf::Time delta_time)
 {
+    // Holding Escape for quit_time results in a game over and thus quitting to the main menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
     {
         quit_cooldown = quit_cooldown > delta_time.asMilliseconds() ? quit_cooldown - delta_time.asMilliseconds() : 0;
